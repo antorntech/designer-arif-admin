@@ -8,7 +8,7 @@ function Home() {
 
   const token = JSON.parse(localStorage.getItem("token"));
 
-  // Get all users
+  // Get all head menus
   useEffect(() => {
     fetch("http://localhost:8000/api/v1/headmenu", {
       method: "GET",

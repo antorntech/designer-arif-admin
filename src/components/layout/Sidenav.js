@@ -47,6 +47,24 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
+  const sidenavIcon = (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={1} // Ensure a unique key for React rendering
+    >
+      <path
+        d="M4.5 10L8 13.5L15.5 6"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
   return (
     <>
       <div className="brand">
@@ -74,7 +92,7 @@ function Sidenav({ color }) {
                 background: page === "dashboard" ? color : "",
               }}
             >
-              {dashboard}
+              {sidenavIcon}
             </span>
             <span className="label">Dashboard</span>
           </NavLink>
@@ -87,7 +105,7 @@ function Sidenav({ color }) {
                 background: page === "header" ? color : "",
               }}
             >
-              {profile}
+              {sidenavIcon}
             </span>
             <span className="label">All Head Menu</span>
           </NavLink>
@@ -100,7 +118,7 @@ function Sidenav({ color }) {
                 background: page === "hero" ? color : "",
               }}
             >
-              {profile}
+              {sidenavIcon}
             </span>
             <span className="label">Hero Content</span>
           </NavLink>
