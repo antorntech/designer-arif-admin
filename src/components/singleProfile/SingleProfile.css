@@ -1,0 +1,47 @@
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.pending_btn {
+  border: none;
+  color: white;
+  margin-left: 10px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: rgb(37, 224, 162);
+  cursor: pointer;
+}
+
+.active_btn {
+  border: none;
+  color: white;
+  background-color: red;
+  margin-left: 10px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: green;
+  cursor: pointer;
+}
+
+.profile_wraper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_content {
+  margin-top: 20px;
+}
+
+.profile_content h2 {
+  color: gray;
+  font-size: 15px;
+}
+
+.status_title {
+  color: black;
+  font-weight: bold;
+}
