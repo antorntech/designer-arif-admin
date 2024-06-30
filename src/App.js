@@ -9,6 +9,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderMenu from "./pages/HeaderMenu";
 import AddHeadMenu from "./pages/AddHeadMenu";
+import AddHeroContent from "./pages/AddHeroContent";
+import HeroContent from "./pages/HeroContent";
+import EditHeadMenu from "./pages/EditHeadMenu";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -21,6 +24,9 @@ function App() {
             <Route exact path="/dashboard" component={Home} />
             <Route exact path="/head-menu" component={HeaderMenu} />
             <Route exact path="/add-head-menu" component={AddHeadMenu} />
+            <Route exact path="/edit-head-menu/:id" component={EditHeadMenu} />
+            <Route exact path="/hero-content" component={HeroContent} />
+            <Route exact path="/add-hero-content" component={AddHeroContent} />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>

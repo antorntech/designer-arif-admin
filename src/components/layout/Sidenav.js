@@ -92,6 +92,19 @@ function Sidenav({ color }) {
             <span className="label">All Head Menu</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="hero">
+          <NavLink to="/hero-content">
+            <span
+              className="icon"
+              style={{
+                background: page === "hero" ? color : "",
+              }}
+            >
+              {profile}
+            </span>
+            <span className="label">Hero Content</span>
+          </NavLink>
+        </Menu.Item>
       </Menu>
       <div className="aside-footer">
         <div
