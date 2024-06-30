@@ -1,22 +1,23 @@
 import React from "react";
-import { Form, Input, Button, message, Row, Col } from "antd";
+import { Form, Input, Button, message, Row, Col, InputNumber } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const AddGlCode = () => {
+const AddTaskList = () => {
   const navigate = useHistory();
+  const [form] = Form.useForm();
 
   const handleUpload = (values) => {
     // Extract values from the form
-    const { accountId, accountDesc } = values;
+    const { label, value } = values;
 
     // Prepare the data to be sent
     const data = {
-      accountId,
-      accountDesc,
+      label,
+      value,
     };
 
     // Send a POST request with JSON data
-    fetch("http://localhost:8000/api/v1/glcode/addGLCode", {
+    fetch("http://localhost:8000/api/v1/tasklist/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,19 +28,19 @@ const AddGlCode = () => {
       .then(async (res) => {
         if (!res.ok) {
           if (res.status === 400) {
-            // Handle the case where LTD already exists
+            // Handle the case where label already exists
             const errorMessage = await res.text();
             throw new Error(errorMessage);
           } else {
             // Handle other errors
-            throw new Error("Failed to upload data");
+            throw new Error("Failed to added head menu. Please try again.");
           }
         }
         return res.json();
       })
       .then(() => {
-        message.success("Upload successful.");
-        navigate.push("/glcode");
+        message.success("Head Menu Added Successful.");
+        navigate.push("/task-list");
       })
       .catch((error) => {
         console.error(error);
@@ -50,40 +51,46 @@ const AddGlCode = () => {
   return (
     <Row gutter={[24, 0]}>
       <Col xs={24} md={12} lg={12}>
-        <Form onFinish={handleUpload} layout="vertical">
+        <Form form={form} onFinish={handleUpload} layout="vertical">
           <Row gutter={[24, 0]}>
             <Col xs={24} md={12} lg={12}>
               <Form.Item
-                name="accountId"
-                label="Account Id"
-                placeholder="Enter accountId"
+                name="label"
+                label="Label"
+                placeholder="Enter task list label"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter glcode accountId",
+                    message: "Please enter task list label",
                   },
                 ]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="accountDesc"
-                label="Account Description"
-                placeholder="Enter accountDesc"
+                name="value"
+                label="Value"
+                placeholder="Enter value"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter glcode accountDescription",
+                    message: "Please enter task list value",
                   },
                 ]}
               >
-                <Input />
+                <InputNumber
+                  style={{
+                    width: "100%",
+                    padding: "5px",
+                    borderRadius: "5px",
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" className="primary-btn" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
@@ -93,4 +100,4 @@ const AddGlCode = () => {
   );
 };
 
-export default AddGlCode;
+export default AddTaskList;

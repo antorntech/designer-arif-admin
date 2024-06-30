@@ -7,7 +7,6 @@ import {
   Input,
   Layout,
   Row,
-  Switch,
   Typography,
   message,
 } from "antd";
@@ -16,14 +15,7 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 const SignIn = () => {
-  const [checked, setChecked] = React.useState(true);
-  const onChange = (checked) => {
-    console.log(`switch to ${checked}`);
-    setChecked(checked);
-  };
-
   const onFinish = (values) => {
-    values.remember = checked;
     if (values) {
       fetch("http://localhost:8000/api/v1/admin/login", {
         method: "POST",

@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const HeroContent = () => {
-  const [heroContent, setHeroContent] = useState([]);
+const Services = () => {
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getHeroContent = async () => {
+  const getServices = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/herocontent", {
+      fetch("http://localhost:8000/api/v1/services", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const HeroContent = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setHeroContent(data); // Update heroContent state with fetched data
+          setServices(data); // Update services state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,7 +40,7 @@ const HeroContent = () => {
   };
 
   useEffect(() => {
-    getHeroContent();
+    getServices();
   }, []);
 
   // Delete hero content item
@@ -54,10 +54,10 @@ const HeroContent = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Hero Content Deleted Successfully", {
+        toast.success("Service Deleted Successfully", {
           autoClose: 1000,
         });
-        getHeroContent(); // Fetch updated list after successful deletion
+        getServices(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
         console.error("Error deleting hero content:", error);
@@ -95,58 +95,38 @@ const HeroContent = () => {
           }}
         >
           <div>
-            <h1>Hero Content</h1>
+            <h1>Service</h1>
             <p>
-              Hero contents are{" "}
-              {heroContent.length > 0 ? "available." : "not available."}
+              Services are{" "}
+              {services.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
-            {heroContent.length > 0 ? (
-              <Button type="primary" disabled>
-                <Link to="/add-hero-content">
-                  <PlusOutlined style={{ marginRight: "5px" }} />
-                  Add Hero Content
-                </Link>
-              </Button>
-            ) : (
-              <Button type="primary" className="primary-btn">
-                <Link to="/add-hero-content">
-                  <PlusOutlined style={{ marginRight: "5px" }} />
-                  Add Hero Content
-                </Link>
-              </Button>
-            )}
+            <Button type="primary" className="primary-btn">
+              <Link to="/add-service">
+                <PlusOutlined style={{ marginRight: "5px" }} />
+                Add Service
+              </Link>
+            </Button>
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : heroContent.length > 0 ? (
-          <Table dataSource={heroContent} rowKey="_id">
+        ) : services.length > 0 ? (
+          <Table dataSource={services} rowKey="_id">
             <Column
               title="Banner"
-              dataIndex="banner"
-              key="banner"
+              dataIndex="thumbnail"
+              key="thumbnail"
               width="200px"
-              render={(banner) => (
+              render={(thumbnail) => (
                 <img
-                  src={`http://localhost:8000${banner}`}
+                  src={`http://localhost:8000${thumbnail}`}
                   style={{ width: "250px", height: "150px" }}
                 />
               )}
             />
             <Column title="Title" dataIndex="title" key="title" />
-            <Column
-              title="Description"
-              key="description"
-              render={(_, record) => (
-                <Space>
-                  <p style={{ color: "#000" }}>
-                    {record.description.slice(0, 40)}...
-                  </p>
-                </Space>
-              )}
-            />
             <Column
               title="Action"
               key="action"
@@ -173,4 +153,4 @@ const HeroContent = () => {
   );
 };
 
-export default HeroContent;
+export default Services;

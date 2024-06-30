@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, message, Row, Col } from "antd";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Form, Input, Button, message, Row, Col, InputNumber } from "antd";
+import { useHistory, useParams } from "react-router-dom";
 
-const EditLTD = () => {
+const EditTaskList = () => {
   const navigate = useHistory();
   const { id } = useParams();
   const [form] = Form.useForm(); // Using Form Hooks
-  const [ltdData, setLtdData] = useState({});
+  const [taskListData, setTaskListData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/ltd/${id}`, {
+    fetch(`http://localhost:8000/api/v1/tasklist/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -18,27 +17,27 @@ const EditLTD = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch LTD data");
+          throw new Error("Failed to fetch Task List data");
         }
         return res.json();
       })
       .then((data) => {
-        setLtdData(data);
+        setTaskListData(data);
         form.setFieldsValue(data); // Set form values after data is fetched
       })
       .catch((error) => {
-        console.error("Error fetching LTD data:", error);
-        message.error("Failed to fetch LTD data");
+        console.error("Error fetching Task List data:", error);
+        message.error("Failed to fetch Task List data");
       });
   }, [id, form]);
 
   const handleUpload = (values) => {
     const data = {
-      ...ltdData,
+      ...taskListData,
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/ltd/updateLTD/${id}`, {
+    fetch(`http://localhost:8000/api/v1/tasklist/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -48,17 +47,17 @@ const EditLTD = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to update LTD data");
+          throw new Error("Failed to update Task List data");
         }
         return res.json();
       })
       .then(() => {
-        message.success("LTD data updated successfully.");
-        navigate.push("/ltd");
+        message.success("Task List data updated successfully.");
+        navigate.push("/head-menu");
       })
       .catch((error) => {
         console.error(error);
-        message.error("Failed to update LTD data");
+        message.error("Failed to update Task List data");
       });
   };
 
@@ -69,42 +68,47 @@ const EditLTD = () => {
           form={form}
           onFinish={handleUpload}
           layout="vertical"
-          initialValues={ltdData} // Pre-fill the form with existing LTD data
+          initialValues={taskListData}
         >
-          <h1>Edit LTD</h1>
           <Row gutter={[24, 0]}>
             <Col xs={24} md={12} lg={12}>
               <Form.Item
-                name="ltd"
-                label="LTD"
-                placeholder="Enter LTD"
+                name="label"
+                label="Label"
+                placeholder="Enter head label"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter product LTD",
+                    message: "Please enter task list label",
                   },
                 ]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="taskNo"
-                label="Task No"
-                placeholder="Enter Task No"
+                name="value"
+                label="Value"
+                placeholder="Enter value"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter task number",
+                    message: "Please enter task list value",
                   },
                 ]}
               >
-                <Input />
+                <InputNumber
+                  style={{
+                    width: "100%",
+                    padding: "5px",
+                    borderRadius: "5px",
+                  }}
+                />
               </Form.Item>
             </Col>
           </Row>
 
-          <Form.Item label=" ">
-            <Button type="primary" htmlType="submit">
+          <Form.Item>
+            <Button type="primary" className="primary-btn" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
@@ -114,4 +118,4 @@ const EditLTD = () => {
   );
 };
 
-export default EditLTD;
+export default EditTaskList;

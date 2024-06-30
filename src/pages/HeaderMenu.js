@@ -4,7 +4,6 @@ import {
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
-  EyeFilled,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ import { toast } from "react-toastify";
 import Loader from "../components/shared/loader/Loader";
 
 const { confirm } = Modal;
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 const HeaderMenu = () => {
   const [headMenus, setHeadMenus] = useState([]);

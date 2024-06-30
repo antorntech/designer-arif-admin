@@ -1,9 +1,8 @@
 import { Card, Col, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
-import Echart from "../components/chart/EChart";
-import LineChart from "../components/chart/LineChart";
 function Home() {
   const [headMenus, setHeadMenus] = useState([]);
+  const [taskList, setTaskList] = useState([]);
   const { Title } = Typography;
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -28,12 +27,39 @@ function Home() {
       });
   }, [token]);
 
+  // Get all task list
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/tasklist", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setTaskList(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
   const count = [
     {
       today: "Total Head Menu",
       title: `${headMenus && headMenus.length > 0 ? headMenus.length : 0}`,
       icon: <i class="fa-brands fa-elementor icon"></i>,
       bnb: "bnb2",
+    },
+
+    {
+      today: "Total Task List",
+      title: `${taskList && taskList.length > 0 ? taskList.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
     },
   ];
 
@@ -66,19 +92,6 @@ function Home() {
               </Card>
             </Col>
           ))}
-        </Row>
-
-        <Row gutter={[24, 0]}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
-              <Echart />
-            </Card>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-            <Card bordered={false} className="criclebox h-full">
-              <LineChart />
-            </Card>
-          </Col>
         </Row>
       </div>
     </>
