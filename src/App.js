@@ -26,6 +26,9 @@ import EditExperience from "./pages/EditExperience";
 import Skills from "./pages/Skills";
 import AddSkill from "./pages/AddSkill";
 import { EditSkill } from "./pages/EditSkill";
+import Reviews from "./pages/Reviews";
+import AddReview from "./pages/AddReview";
+import { EditReview } from "./pages/EditReview";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -71,6 +74,13 @@ function App() {
             <Route exact path="/skills" component={Skills} />
             <Route exact path="/skills/add-skill" component={AddSkill} />
             <Route exact path="/skills/edit-skill/:id" component={EditSkill} />
+            <Route exact path="/reviews" component={Reviews} />
+            <Route exact path="/reviews/add-review" component={AddReview} />
+            <Route
+              exact
+              path="/reviews/edit-review/:id"
+              component={EditReview}
+            />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>

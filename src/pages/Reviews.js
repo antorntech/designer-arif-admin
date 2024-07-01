@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const Services = () => {
-  const [services, setServices] = useState([]);
+const Reviews = () => {
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getServices = async () => {
+  const getReviews = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/services", {
+      fetch("http://localhost:8000/api/v1/reviews", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Services = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setServices(data); // Update services state with fetched data
+          setReviews(data); // Update reviews state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,13 +40,13 @@ const Services = () => {
   };
 
   useEffect(() => {
-    getServices();
+    getReviews();
   }, []);
 
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/services/delete/${id}`, {
+    fetch(`http://localhost:8000/api/v1/reviews/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -54,10 +54,10 @@ const Services = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Service Deleted Successfully", {
+        toast.success("Review Deleted Successfully", {
           autoClose: 1000,
         });
-        getServices(); // Fetch updated list after successful deletion
+        getReviews(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
         console.error("Error deleting hero content:", error);
@@ -95,46 +95,62 @@ const Services = () => {
           }}
         >
           <div>
-            <h1>Service</h1>
+            <h1>Review</h1>
             <p>
-              Services are{" "}
-              {services.length > 0 ? "available." : "not available."}
+              Reviews are {reviews.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
             <Button type="primary" className="primary-btn">
-              <Link to="/add-service">
+              <Link to="/reviews/add-review">
                 <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Service
+                Add Review
               </Link>
             </Button>
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : services.length > 0 ? (
-          <Table dataSource={services} rowKey="_id">
+        ) : reviews.length > 0 ? (
+          <Table dataSource={reviews} rowKey="_id">
             <Column
-              title="Banner"
-              dataIndex="thumbnail"
-              key="thumbnail"
-              width="200px"
-              render={(thumbnail) => (
+              title="Avatar"
+              dataIndex="avatar"
+              key="avatar"
+              width="100px"
+              render={(avatar) => (
                 <img
-                  src={`http://localhost:8000${thumbnail}`}
-                  alt="Banner"
-                  style={{ width: "250px", height: "150px" }}
+                  src={`http://localhost:8000${avatar}`}
+                  alt="avatar"
+                  style={{ width: "100px", height: "50px" }}
                 />
               )}
             />
-            <Column title="Title" dataIndex="title" key="title" />
+            <Column title="Name" dataIndex="name" key="name" />
+            <Column
+              title="Designation"
+              dataIndex="designation"
+              key="designation"
+            />
+            <Column title="Rating" dataIndex="rating" key="rating" />
+            <Column
+              title="Review"
+              key="review"
+              render={(_, record) => (
+                <Space>
+                  <p style={{ color: "#000" }}>
+                    {record?.review?.slice(0, 40)}...
+                  </p>
+                </Space>
+              )}
+            />
             <Column
               title="Action"
               key="action"
               width="100px"
               render={(_, record) => (
                 <Space size="middle">
-                  <Link to={`/edit-service/${record._id}`}>
+                  <Link to={`/reviews/edit-review/${record._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>
@@ -154,4 +170,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Reviews;

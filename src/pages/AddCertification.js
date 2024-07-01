@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, message, Row, Col, InputNumber } from "antd";
+import { Form, Input, Button, message, Row, Col } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const AddCertification = () => {

@@ -121,6 +121,7 @@ const Skills = () => {
               render={(skillphoto) => (
                 <img
                   src={`http://localhost:8000${skillphoto}`}
+                  alt="skillphoto"
                   style={{ width: "100px", height: "50px" }}
                 />
               )}

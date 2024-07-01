@@ -1,4 +1,4 @@
-import { Button, Menu } from "antd";
+import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo-black.png";
 
@@ -132,6 +132,19 @@ function Sidenav({ color }) {
               {sidenavIcon}
             </span>
             <span className="label">Skills</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="reviews">
+          <NavLink to="/reviews">
+            <span
+              className="icon"
+              style={{
+                background: page === "reviews" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Reviews</span>
           </NavLink>
         </Menu.Item>
       </Menu>
