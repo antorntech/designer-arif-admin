@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 function Home() {
   const [headMenus, setHeadMenus] = useState([]);
   const [taskList, setTaskList] = useState([]);
+  const [services, setServices] = useState([]);
+  const [skills, setSkills] = useState([]);
   const { Title } = Typography;
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -47,17 +49,71 @@ function Home() {
       });
   }, [token]);
 
+  // Get all services
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/services", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setServices(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
+  // Get all skills
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/skills", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setSkills(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
   const count = [
     {
-      today: "Total Head Menu",
-      title: `${headMenus && headMenus.length > 0 ? headMenus.length : 0}`,
-      icon: <i class="fa-brands fa-elementor icon"></i>,
+      title: "Total Header Menu",
+      count: `${headMenus && headMenus.length > 0 ? headMenus.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
       bnb: "bnb2",
     },
 
     {
-      today: "Total Task List",
-      title: `${taskList && taskList.length > 0 ? taskList.length : 0}`,
+      title: "Total Task List",
+      count: `${taskList && taskList.length > 0 ? taskList.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
+    },
+
+    {
+      title: "Total Services",
+      count: `${services && services.length > 0 ? services.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
+    },
+
+    {
+      title: "Total Skills",
+      count: `${skills && skills.length > 0 ? skills.length : 0}`,
       icon: <i class="fa-solid fa-list-check icon"></i>,
       bnb: "bnb",
     },
@@ -73,16 +129,24 @@ function Home() {
               xs={24}
               sm={24}
               md={12}
-              lg={6}
-              xl={6}
+              lg={8}
+              xl={8}
               className="mb-24"
             >
               <Card bordered={false} className="criclebox ">
                 <div className="number">
                   <Row align="middle" gutter={[24, 0]}>
                     <Col xs={18}>
-                      <span>{c.today}</span>
-                      <Title level={3}>{c.title}</Title>
+                      <span style={{ fontSize: "22px" }}>{c.title}</span>
+                      <Title
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "55px",
+                          margin: "0",
+                        }}
+                      >
+                        {c.count}
+                      </Title>
                     </Col>
                     <Col xs={6}>
                       <div className="icon-box">{c.icon}</div>
