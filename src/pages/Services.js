@@ -46,7 +46,7 @@ const Services = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/herocontent/delete/${id}`, {
+    fetch(`http://localhost:8000/api/v1/services/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -133,7 +133,7 @@ const Services = () => {
               width="100px"
               render={(_, record) => (
                 <Space size="middle">
-                  <Link to={`/edit-hero-content/${record._id}`}>
+                  <Link to={`/edit-service/${record._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>

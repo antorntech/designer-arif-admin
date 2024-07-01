@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Form, Input, Button, message, Row, Col, Upload } from "antd";
-import { useHistory, useParams } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
+import { Button, Col, Form, Input, Row, Upload, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-const EditHeroContent = () => {
+export const EditServices = () => {
   const navigate = useHistory();
   const { id } = useParams();
-  const [form] = Form.useForm(); // Using Form Hooks
-  const [heroContentData, setHeroContentData] = useState({});
-  const [bannerFileList, setBannerFileList] = useState([]);
+  const [form] = Form.useForm();
+  const [servicesData, setServicesData] = useState({});
+  const [thumbnailFileList, setThumbnailFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/herocontent/${id}`, {
+    fetch(`http://localhost:8000/api/v1/services/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -20,17 +20,17 @@ const EditHeroContent = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch Hero Content data");
+          throw new Error("Failed to fetch Services data");
         }
         return res.json();
       })
       .then((data) => {
-        setHeroContentData(data);
-        form.setFieldsValue(data); // Set form values after data is fetched
+        setServicesData(data);
+        form.setFieldsValue(data);
       })
       .catch((error) => {
-        console.error("Error fetching Hero Content data:", error);
-        message.error("Failed to fetch Hero Content data");
+        console.error("Error fetching Service data:", error);
+        message.error("Failed to fetch Service data");
       });
   }, [id, form]);
 
@@ -38,17 +38,14 @@ const EditHeroContent = () => {
     const formData = new FormData();
 
     // Append user photo file to formData
-    bannerFileList.forEach((file) => {
-      formData.append("banner", file);
+    thumbnailFileList.forEach((file) => {
+      formData.append("thumbnail", file);
     });
 
-    // Append other form data
     formData.append("title", values.title);
-    formData.append("description", values.description);
     setUploading(true);
-
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/herocontent/update/${id}`, {
+    fetch(`http://localhost:8000/api/v1/services/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -57,35 +54,35 @@ const EditHeroContent = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to update Hero Content data");
+          throw new Error("Failed to update service data");
         }
         return res.json();
       })
       .then(() => {
-        message.success("Hero Content data updated successfully.");
-        navigate.push("/hero-content");
+        message.success("Service data updated successfully.");
+        navigate.push("/services");
       })
       .catch((error) => {
-        console.error(error);
-        message.error("Failed to update Hero Content data");
+        console.log(error);
+        message.error("Failed to update service data.");
       })
       .finally(() => {
         setUploading(false);
       });
   };
 
-  const bannerFileProps = {
+  const thumbnailFileProps = {
     onRemove: (file) => {
-      const index = bannerFileList.indexOf(file);
-      const newFileList = bannerFileList.slice();
+      const index = thumbnailFileList.indexOf(file);
+      const newFileList = thumbnailFileList.slice();
       newFileList.splice(index, 1);
-      setBannerFileList(newFileList);
+      setThumbnailFileList(newFileList);
     },
     beforeUpload: (file) => {
-      setBannerFileList([...bannerFileList, file]);
-      return false; // Prevent default upload behavior
+      setThumbnailFileList([...thumbnailFileList, file]);
+      return false;
     },
-    fileList: bannerFileList,
+    fileList: thumbnailFileList,
   };
 
   return (
@@ -95,7 +92,7 @@ const EditHeroContent = () => {
           onFinish={handleUpload}
           layout="vertical"
           form={form}
-          initialValues={heroContentData}
+          initialValues={servicesData}
         >
           <Row gutter={[24, 0]}>
             <Col xs={24} md={24} lg={24}>
@@ -106,44 +103,30 @@ const EditHeroContent = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please enter hero content title",
+                    message: "Please enter service title",
                   },
                 ]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="description"
-                label="Description"
-                placeholder="Enter description"
+                name="thumbnail"
+                label="Upload Thumbnail"
                 rules={[
                   {
                     required: true,
-                    message: "Please enter description",
+                    message: "Please enter thumbnail",
                   },
                 ]}
               >
-                <Input.TextArea rows={6} />
-              </Form.Item>
-              <Form.Item
-                name="banner"
-                label="Upload Banner"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter banner",
-                  },
-                ]}
-              >
-                <Upload {...bannerFileProps}>
+                <Upload {...thumbnailFileProps}>
                   <Button icon={<UploadOutlined />}>Select File</Button>
                 </Upload>
               </Form.Item>
             </Col>
           </Row>
-
           <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
+            <Button type="primary" htmlType="submit" className="primary-btn">
               Submit
             </Button>
           </Form.Item>
@@ -152,5 +135,3 @@ const EditHeroContent = () => {
     </Row>
   );
 };
-
-export default EditHeroContent;

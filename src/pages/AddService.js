@@ -20,7 +20,6 @@ const AddService = () => {
 
     // Append other form data
     formData.append("title", values.title);
-    formData.append("description", values.description);
     setUploading(true);
     // You can use any AJAX library you like
     fetch("http://localhost:8000/api/v1/services/add", {

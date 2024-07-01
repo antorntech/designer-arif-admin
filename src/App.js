@@ -18,6 +18,7 @@ import EditTaskList from "./pages/EditTaskList";
 import EditHeroContent from "./pages/EditHeroContent";
 import Services from "./pages/Services";
 import AddService from "./pages/AddService";
+import { EditServices } from "./pages/EditServices";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -43,6 +44,7 @@ function App() {
             <Route exact path="/edit-task-list/:id" component={EditTaskList} />
             <Route exact path="/services" component={Services} />
             <Route exact path="/add-service" component={AddService} />
+            <Route exact path="/edit-service/:id" component={EditServices} />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>
