@@ -19,6 +19,10 @@ import EditHeroContent from "./pages/EditHeroContent";
 import Services from "./pages/Services";
 import AddService from "./pages/AddService";
 import { EditServices } from "./pages/EditServices";
+import Qualification from "./pages/Qualification";
+import AddExperience from "./pages/AddExperience";
+import AddCertification from "./pages/AddCertification";
+import EditExperience from "./pages/EditExperience";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -45,6 +49,22 @@ function App() {
             <Route exact path="/services" component={Services} />
             <Route exact path="/add-service" component={AddService} />
             <Route exact path="/edit-service/:id" component={EditServices} />
+            <Route exact path="/qualification" component={Qualification} />
+            <Route
+              exact
+              path="/qualification/add-experience"
+              component={AddExperience}
+            />
+            <Route
+              exact
+              path="/qualification/edit-experience/:id"
+              component={EditExperience}
+            />
+            <Route
+              exact
+              path="/qualification/add-certification"
+              component={AddCertification}
+            />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>

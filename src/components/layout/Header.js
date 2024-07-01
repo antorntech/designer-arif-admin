@@ -4,7 +4,6 @@ import {
   Row,
   Col,
   Button,
-  List,
   Avatar,
   Input,
   Drawer,
@@ -80,26 +79,6 @@ const clockicon = [
       fill="#0bb0ba"
     ></path>
   </svg>,
-];
-
-const data = [
-  {
-    title: "New message from Sophie",
-    description: <>{clockicon} 2 days ago</>,
-
-    avatar: avtar,
-  },
-  {
-    title: "New album by Travis Scott",
-    description: <>{clockicon} 2 days ago</>,
-
-    avatar: <Avatar shape="square">{wifi}</Avatar>,
-  },
-  {
-    title: "Payment completed",
-    description: <>{clockicon} 2 days ago</>,
-    avatar: <Avatar shape="square">{credit}</Avatar>,
-  },
 ];
 
 const logsetting = [
@@ -309,11 +288,6 @@ function Header({ placement, onPress }) {
           >
             Logout
           </Button>
-          <Input
-            className="header-search"
-            placeholder="Type here..."
-            prefix={<SearchOutlined />}
-          />
         </Col>
       </Row>
     </>

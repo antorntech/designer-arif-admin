@@ -108,6 +108,19 @@ function Sidenav({ color }) {
             <span className="label">Services</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="qualification">
+          <NavLink to="/qualification">
+            <span
+              className="icon"
+              style={{
+                background: page === "qualification" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Qualification</span>
+          </NavLink>
+        </Menu.Item>
       </Menu>
       <div className="aside-footer">
         <div
