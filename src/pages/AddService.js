@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { Form, Input, Upload, Button, message, Row, Col, Select } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -9,9 +9,32 @@ const AddService = () => {
   const navigate = useHistory();
   const date = moment().format("ll");
   const [category, setCategory] = useState("");
+  const [serviceCategory, setServiceCategory] = useState([]);
   const [thumbnailFileList, setBannerFileList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/v1/servicecategory`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch Services data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setServiceCategory(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Service data:", error);
+        message.error("Failed to fetch Service data");
+      });
+  }, []);
 
   const handleUpload = (values) => {
     const formData = new FormData();
@@ -69,6 +92,11 @@ const AddService = () => {
     console.log(value);
   };
 
+  const serviceOptions = serviceCategory.map((category) => ({
+    label: category.title,
+    value: category.title,
+  }));
+
   return (
     <>
       <div>
@@ -119,32 +147,7 @@ const AddService = () => {
                       width: "100%",
                     }}
                     placeholder="Please select category"
-                    options={[
-                      {
-                        value: "Logo Design",
-                        label: "Logo Design",
-                      },
-                      {
-                        value: "Branding",
-                        label: "Branding",
-                      },
-                      {
-                        value: "Print Design",
-                        label: "Print Design",
-                      },
-                      {
-                        value: "Social Media",
-                        label: "Social Media",
-                      },
-                      {
-                        value: "Animation",
-                        label: "Animation",
-                      },
-                      {
-                        value: "3d Modeling",
-                        label: "3d Modeling",
-                      },
-                    ]}
+                    options={serviceOptions}
                     onChange={handleCategoryChange}
                   />
                 </Form.Item>

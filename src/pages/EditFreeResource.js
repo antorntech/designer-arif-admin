@@ -90,79 +90,87 @@ export const EditFreeResource = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form
-          onFinish={handleUpload}
-          layout="vertical"
-          form={form}
-          initialValues={freeResourceData}
-        >
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={24} lg={24}>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter blog title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                label="Description"
-                placeholder="Enter description"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter blog description",
-                  },
-                ]}
-              >
-                <TextArea rows={6} />
-              </Form.Item>
-              <Form.Item
-                name="link"
-                label="Link"
-                placeholder="Enter link"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter free resource link",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="banner"
-                label="Upload banner"
-                rules={[
-                  {
-                    required: true,
-                    message: "",
-                  },
-                ]}
-              >
-                <Upload {...bannerFileProps}>
-                  <Button icon={<UploadOutlined />}>Select File</Button>
-                </Upload>
-              </Form.Item>
-            </Col>
-          </Row>
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Edit Free Resource
+        </h1>
+        <p>You can edit free resource from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form
+            onFinish={handleUpload}
+            layout="vertical"
+            form={form}
+            initialValues={freeResourceData}
+          >
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={24} lg={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter blog title",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  placeholder="Enter description"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter blog description",
+                    },
+                  ]}
+                >
+                  <TextArea rows={6} />
+                </Form.Item>
+                <Form.Item
+                  name="link"
+                  label="Link"
+                  placeholder="Enter link"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter free resource link",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="banner"
+                  label="Upload banner"
+                  rules={[
+                    {
+                      required: true,
+                      message: "",
+                    },
+                  ]}
+                >
+                  <Upload {...bannerFileProps}>
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };

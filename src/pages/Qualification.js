@@ -221,7 +221,9 @@ const Qualification = () => {
                   width="100px"
                   render={(_, record) => (
                     <Space size="middle">
-                      <Link to={`/edit-qualification/${record._id}`}>
+                      <Link
+                        to={`/qualification/edit-certification/${record._id}`}
+                      >
                         <Button type="primary">
                           <EditOutlined />
                         </Button>

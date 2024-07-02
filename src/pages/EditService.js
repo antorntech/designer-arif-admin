@@ -97,106 +97,114 @@ export const EditServices = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form
-          onFinish={handleUpload}
-          layout="vertical"
-          form={form}
-          initialValues={servicesData}
-        >
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={24} lg={24}>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter service title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                label="Description"
-                placeholder="Enter description"
-              >
-                <TextArea rows={6} />
-              </Form.Item>
-              <Form.Item
-                name="category"
-                label="Category"
-                placeholder="Enter category"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter category",
-                  },
-                ]}
-              >
-                <Select
-                  allowClear
-                  style={{
-                    width: "100%",
-                  }}
-                  placeholder="Please select category"
-                  options={[
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Edit Service
+        </h1>
+        <p>You can edit service from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form
+            onFinish={handleUpload}
+            layout="vertical"
+            form={form}
+            initialValues={servicesData}
+          >
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={24} lg={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
                     {
-                      value: "Logo Design",
-                      label: "Logo Design",
-                    },
-                    {
-                      value: "Branding",
-                      label: "Branding",
-                    },
-                    {
-                      value: "Print Design",
-                      label: "Print Design",
-                    },
-                    {
-                      value: "Social Media",
-                      label: "Social Media",
-                    },
-                    {
-                      value: "Animation",
-                      label: "Animation",
-                    },
-                    {
-                      value: "3d Modeling",
-                      label: "3d Modeling",
+                      required: true,
+                      message: "Please enter service title",
                     },
                   ]}
-                  onChange={handleCategoryChange}
-                />
-              </Form.Item>
-              <Form.Item
-                name="thumbnail"
-                label="Upload Banner"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter thumbnail",
-                  },
-                ]}
-              >
-                <Upload {...thumbnailFileProps}>
-                  <Button icon={<UploadOutlined />}>Select File</Button>
-                </Upload>
-              </Form.Item>
-            </Col>
-          </Row>
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  placeholder="Enter description"
+                >
+                  <TextArea rows={6} />
+                </Form.Item>
+                <Form.Item
+                  name="category"
+                  label="Category"
+                  placeholder="Enter category"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter category",
+                    },
+                  ]}
+                >
+                  <Select
+                    allowClear
+                    style={{
+                      width: "100%",
+                    }}
+                    placeholder="Please select category"
+                    options={[
+                      {
+                        value: "Logo Design",
+                        label: "Logo Design",
+                      },
+                      {
+                        value: "Branding",
+                        label: "Branding",
+                      },
+                      {
+                        value: "Print Design",
+                        label: "Print Design",
+                      },
+                      {
+                        value: "Social Media",
+                        label: "Social Media",
+                      },
+                      {
+                        value: "Animation",
+                        label: "Animation",
+                      },
+                      {
+                        value: "3d Modeling",
+                        label: "3d Modeling",
+                      },
+                    ]}
+                    onChange={handleCategoryChange}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="thumbnail"
+                  label="Upload Banner"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter thumbnail",
+                    },
+                  ]}
+                >
+                  <Upload {...thumbnailFileProps}>
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };

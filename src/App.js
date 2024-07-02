@@ -38,6 +38,7 @@ import { EditServiceCategory } from "./pages/EditServiceCategory";
 import Services from "./pages/Services";
 import AddService from "./pages/AddService";
 import { EditServices } from "./pages/EditService";
+import EditCertification from "./pages/EditCertification";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -90,6 +91,11 @@ function App() {
               exact
               path="/qualification/add-certification"
               component={AddCertification}
+            />
+            <Route
+              exact
+              path="/qualification/edit-certification/:id"
+              component={EditCertification}
             />
             <Route exact path="/skills" component={Skills} />
             <Route exact path="/skills/add-skill" component={AddSkill} />

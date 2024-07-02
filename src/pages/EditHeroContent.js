@@ -89,67 +89,75 @@ const EditHeroContent = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form
-          onFinish={handleUpload}
-          layout="vertical"
-          form={form}
-          initialValues={heroContentData}
-        >
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={24} lg={24}>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter hero content title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                label="Description"
-                placeholder="Enter description"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter description",
-                  },
-                ]}
-              >
-                <Input.TextArea rows={6} />
-              </Form.Item>
-              <Form.Item
-                name="banner"
-                label="Upload Banner"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter banner",
-                  },
-                ]}
-              >
-                <Upload {...bannerFileProps}>
-                  <Button icon={<UploadOutlined />}>Select File</Button>
-                </Upload>
-              </Form.Item>
-            </Col>
-          </Row>
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Edit Hero Content
+        </h1>
+        <p>You can edit hero content from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form
+            onFinish={handleUpload}
+            layout="vertical"
+            form={form}
+            initialValues={heroContentData}
+          >
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={24} lg={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter hero content title",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  placeholder="Enter description"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter description",
+                    },
+                  ]}
+                >
+                  <Input.TextArea rows={6} />
+                </Form.Item>
+                <Form.Item
+                  name="banner"
+                  label="Upload Banner"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter banner",
+                    },
+                  ]}
+                >
+                  <Upload {...bannerFileProps}>
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
 

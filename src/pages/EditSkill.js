@@ -96,69 +96,81 @@ export const EditSkill = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form
-          onFinish={handleUpload}
-          layout="vertical"
-          form={form}
-          initialValues={skillData}
-        >
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={24} lg={24}>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter skill title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="percentance"
-                label="Percentance"
-                placeholder="Enter percentance"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter skill percentance",
-                  },
-                ]}
-              >
-                <InputNumber
-                  min={0}
-                  style={{ width: "100%", padding: "5px", borderRadius: "5px" }}
-                />
-              </Form.Item>
-              <Form.Item
-                name="skillphoto"
-                label="Upload Skill Photo"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter skill photo",
-                  },
-                ]}
-              >
-                <Upload {...skillPhotoFileProps}>
-                  <Button icon={<UploadOutlined />}>Select File</Button>
-                </Upload>
-              </Form.Item>
-            </Col>
-          </Row>
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Edit Skill
+        </h1>
+        <p>You can edit skill from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form
+            onFinish={handleUpload}
+            layout="vertical"
+            form={form}
+            initialValues={skillData}
+          >
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={24} lg={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter skill title",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="percentance"
+                  label="Percentance"
+                  placeholder="Enter percentance"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter skill percentance",
+                    },
+                  ]}
+                >
+                  <InputNumber
+                    min={0}
+                    style={{
+                      width: "100%",
+                      padding: "5px",
+                      borderRadius: "5px",
+                    }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="skillphoto"
+                  label="Upload Skill Photo"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter skill photo",
+                    },
+                  ]}
+                >
+                  <Upload {...skillPhotoFileProps}>
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
