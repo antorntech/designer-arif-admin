@@ -107,14 +107,8 @@ const EditHeadMenu = () => {
                   label="Path"
                   placeholder="Enter path"
                   initialValue={autoPath} // Set initial value for path
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter head menu path",
-                    },
-                  ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               </Col>
             </Row>

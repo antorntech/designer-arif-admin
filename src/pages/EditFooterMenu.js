@@ -47,7 +47,7 @@ const EditFooterMenu = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/headmenu/update/${id}`, {
+    fetch(`http://localhost:8000/api/v1/footermenu/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const EditFooterMenu = () => {
       })
       .then(() => {
         message.success("Footer Menu data updated successfully.");
-        navigate.push("/head-menu");
+        navigate.push("/footer-menu");
       })
       .catch((error) => {
         console.error(error);
@@ -107,14 +107,8 @@ const EditFooterMenu = () => {
                   label="Path"
                   placeholder="Footer menu path"
                   initialValue={autoPath} // Set initial value for path
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter footer menu path",
-                    },
-                  ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               </Col>
             </Row>

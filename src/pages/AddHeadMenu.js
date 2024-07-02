@@ -88,14 +88,8 @@ const AddHeadMenu = () => {
                   label="Path"
                   placeholder="Header menu path"
                   initialValue={autoPath} // Set initial value for path
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter head menu path",
-                    },
-                  ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               </Col>
             </Row>

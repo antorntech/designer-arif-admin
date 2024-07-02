@@ -88,14 +88,8 @@ const AddFooterMenu = () => {
                   label="Path"
                   placeholder="Footer menu path"
                   initialValue={autoPath} // Set initial value for path
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter footer menu path",
-                    },
-                  ]}
                 >
-                  <Input />
+                  <Input disabled />
                 </Form.Item>
               </Col>
             </Row>
