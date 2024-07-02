@@ -4,16 +4,16 @@ import TextArea from "antd/lib/input/TextArea";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-export const EditBlog = () => {
+export const EditFreeResource = () => {
   const navigate = useHistory();
   const { id } = useParams();
   const [form] = Form.useForm();
-  const [blogData, setBlogData] = useState({});
+  const [freeResourceData, setFreeResourceData] = useState({});
   const [bannerFileList, setBannerFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/blogs/${id}`, {
+    fetch(`http://localhost:8000/api/v1/freeresource/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -26,7 +26,7 @@ export const EditBlog = () => {
         return res.json();
       })
       .then((data) => {
-        setBlogData(data);
+        setFreeResourceData(data);
         form.setFieldsValue(data);
       })
       .catch((error) => {
@@ -46,9 +46,10 @@ export const EditBlog = () => {
     // Append other form data
     formData.append("title", values.title);
     formData.append("description", values.description);
+    formData.append("link", values.link);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/blogs/update/${id}`, {
+    fetch(`http://localhost:8000/api/v1/freeresource/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -63,7 +64,7 @@ export const EditBlog = () => {
       })
       .then(() => {
         message.success("Blog data updated successfully.");
-        navigate.push("/blogs");
+        navigate.push("/freeresource");
       })
       .catch((error) => {
         console.log(error);
@@ -95,7 +96,7 @@ export const EditBlog = () => {
           onFinish={handleUpload}
           layout="vertical"
           form={form}
-          initialValues={blogData}
+          initialValues={freeResourceData}
         >
           <Row gutter={[24, 0]}>
             <Col xs={24} md={24} lg={24}>
@@ -124,6 +125,19 @@ export const EditBlog = () => {
                 ]}
               >
                 <TextArea rows={6} />
+              </Form.Item>
+              <Form.Item
+                name="link"
+                label="Link"
+                placeholder="Enter link"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter free resource link",
+                  },
+                ]}
+              >
+                <Input />
               </Form.Item>
               <Form.Item
                 name="banner"

@@ -13,8 +13,6 @@ const AddBlog = () => {
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
-  console.log(tags);
-
   const handleUpload = (values) => {
     const formData = new FormData();
 

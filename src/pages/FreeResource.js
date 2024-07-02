@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal } from "antd";
+import { Space, Table, Button, Modal, Tag } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const Blogs = () => {
-  const [blogs, setBlogs] = useState([]);
+const FreeResource = () => {
+  const [freeresource, setFreeResource] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getBlogs = async () => {
+  const getFreeResource = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/blogs", {
+      fetch("http://localhost:8000/api/v1/freeresource", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Blogs = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setBlogs(data); // Update blogs state with fetched data
+          setFreeResource(data); // Update freeresource state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,13 +40,13 @@ const Blogs = () => {
   };
 
   useEffect(() => {
-    getBlogs();
+    getFreeResource();
   }, []);
 
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/blogs/delete/${id}`, {
+    fetch(`http://localhost:8000/api/v1/freeresource/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -54,10 +54,10 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Blog Deleted Successfully", {
+        toast.success("Free Resource Deleted Successfully", {
           autoClose: 1000,
         });
-        getBlogs(); // Fetch updated list after successful deletion
+        getFreeResource(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
         console.error("Error deleting hero content:", error);
@@ -95,32 +95,32 @@ const Blogs = () => {
           }}
         >
           <div>
-            <h1>Blog</h1>
+            <h1>Free Resource</h1>
             <p>
-              Blogs are {blogs.length > 0 ? "available." : "not available."}
+              FreeResource are{" "}
+              {freeresource.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
             <Button type="primary" className="primary-btn">
-              <Link to="/blogs/add-blog">
+              <Link to="/freeresource/add-freeresource">
                 <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Blog
+                Add Free Resource
               </Link>
             </Button>
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : blogs.length > 0 ? (
+        ) : freeresource.length > 0 ? (
           <Table
-            dataSource={blogs}
+            dataSource={freeresource}
             rowKey="_id"
             scroll={{
-              x: 1300,
+              x: 1000,
             }}
           >
             <Column
-              fixed="left"
               title="Banner"
               dataIndex="banner"
               key="banner"
@@ -133,26 +133,55 @@ const Blogs = () => {
                 />
               )}
             />
-            <Column title="Title" dataIndex="title" key="title" />
+            <Column
+              title="Title"
+              key="title"
+              render={(_, record) => (
+                <Space>
+                  <p style={{ color: "#000" }}>
+                    {record?.title?.slice(0, 30)}...
+                  </p>
+                </Space>
+              )}
+            />
             <Column
               title="Description"
               key="description"
               render={(_, record) => (
                 <Space>
                   <p style={{ color: "#000" }}>
-                    {record?.description?.slice(0, 40)}...
+                    {record?.description?.slice(0, 30)}...
                   </p>
                 </Space>
               )}
             />
             <Column title="Date" dataIndex="date" key="date" width="150px" />
             <Column
+              title="Link"
+              key="link"
+              render={(_, record) => (
+                <Space>
+                  {record?.link ? (
+                    <a
+                      href={record?.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {record?.link?.slice(0, 20)}
+                    </a>
+                  ) : (
+                    "N/A"
+                  )}
+                </Space>
+              )}
+            />
+            <Column
               title="Action"
               key="action"
               width="150px"
               render={(_, record) => (
                 <Space size="middle">
-                  <Link to={`/blogs/edit-blog/${record._id}`}>
+                  <Link to={`/freeresource/edit-freeresource/${record._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>
@@ -172,4 +201,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default FreeResource;

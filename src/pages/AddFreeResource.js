@@ -1,76 +1,48 @@
+import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Upload, message } from "antd";
+import { Form, Input, Upload, Button, message, Row, Col } from "antd";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 import TextArea from "antd/lib/input/TextArea";
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
 
-export const EditBlog = () => {
+const AddFreeResource = () => {
   const navigate = useHistory();
-  const { id } = useParams();
-  const [form] = Form.useForm();
-  const [blogData, setBlogData] = useState({});
-  const [bannerFileList, setBannerFileList] = useState([]);
-  const [uploading, setUploading] = useState(false);
+  const date = moment().format("ll");
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/blogs/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch Blog data");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setBlogData(data);
-        form.setFieldsValue(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching Blog data:", error);
-        message.error("Failed to fetch Blog data");
-      });
-  }, [id, form]);
+  const [bannerFileList, setBannerFileList] = useState([]);
 
   const handleUpload = (values) => {
     const formData = new FormData();
 
-    // Append user photo file to formData
     bannerFileList.forEach((file) => {
       formData.append("banner", file);
     });
 
-    // Append other form data
     formData.append("title", values.title);
     formData.append("description", values.description);
-    setUploading(true);
-    // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/blogs/update/${id}`, {
-      method: "PUT",
+    formData.append("date", date);
+    formData.append("link", values.link);
+    fetch("http://localhost:8000/api/v1/freeresource/add", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
       body: formData,
     })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to update review data");
+        if (res.ok) {
+          return res.json();
         }
-        return res.json();
+        throw new Error("Network response was not ok.");
       })
       .then(() => {
-        message.success("Blog data updated successfully.");
-        navigate.push("/blogs");
+        setBannerFileList([]);
+        message.success("FreeResource Added Successfully.");
+        navigate.push("/freeresource");
       })
       .catch((error) => {
-        console.log(error);
-        message.error("Failed to update service data.");
-      })
-      .finally(() => {
-        setUploading(false);
+        console.error("FreeResource Add Failed:", error);
+        message.error("FreeResource Add Failed.");
       });
   };
 
@@ -83,7 +55,7 @@ export const EditBlog = () => {
     },
     beforeUpload: (file) => {
       setBannerFileList([...bannerFileList, file]);
-      return false;
+      return false; // Prevent default upload behavior
     },
     fileList: bannerFileList,
   };
@@ -91,12 +63,7 @@ export const EditBlog = () => {
   return (
     <Row gutter={[24, 0]}>
       <Col xs={24} md={12} lg={12}>
-        <Form
-          onFinish={handleUpload}
-          layout="vertical"
-          form={form}
-          initialValues={blogData}
-        >
+        <Form onFinish={handleUpload} layout="vertical">
           <Row gutter={[24, 0]}>
             <Col xs={24} md={24} lg={24}>
               <Form.Item
@@ -106,7 +73,7 @@ export const EditBlog = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please enter blog title",
+                    message: "Please enter free resource title",
                   },
                 ]}
               >
@@ -119,11 +86,24 @@ export const EditBlog = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please enter blog description",
+                    message: "Please enter free resource description",
                   },
                 ]}
               >
                 <TextArea rows={6} />
+              </Form.Item>
+              <Form.Item
+                name="link"
+                label="Link"
+                placeholder="Enter link"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter free resource link",
+                  },
+                ]}
+              >
+                <Input />
               </Form.Item>
               <Form.Item
                 name="banner"
@@ -152,3 +132,5 @@ export const EditBlog = () => {
     </Row>
   );
 };
+
+export default AddFreeResource;

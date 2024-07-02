@@ -160,6 +160,19 @@ function Sidenav({ color }) {
             <span className="label">Blogs</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="freeresource">
+          <NavLink to="/freeresource">
+            <span
+              className="icon"
+              style={{
+                background: page === "freeresource" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Free Resource</span>
+          </NavLink>
+        </Menu.Item>
       </Menu>
     </>
   );

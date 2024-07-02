@@ -32,6 +32,9 @@ import { EditReview } from "./pages/EditReview";
 import Blogs from "./pages/Blogs";
 import AddBlog from "./pages/AddBlog";
 import { EditBlog } from "./pages/EditBlog";
+import FreeResource from "./pages/FreeResource";
+import AddFreeResource from "./pages/AddFreeResource";
+import { EditFreeResource } from "./pages/EditFreeResource";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -87,6 +90,17 @@ function App() {
             <Route exact path="/blogs" component={Blogs} />
             <Route exact path="/blogs/add-blog" component={AddBlog} />
             <Route exact path="/blogs/edit-blog/:id" component={EditBlog} />
+            <Route exact path="/freeresource" component={FreeResource} />
+            <Route
+              exact
+              path="/freeresource/add-freeresource"
+              component={AddFreeResource}
+            />
+            <Route
+              exact
+              path="/freeresource/edit-freeresource/:id"
+              component={EditFreeResource}
+            />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>
