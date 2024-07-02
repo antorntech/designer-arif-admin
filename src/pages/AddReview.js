@@ -83,7 +83,7 @@ const AddReview = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please enter service name",
+                    message: "Please enter client name",
                   },
                 ]}
               >

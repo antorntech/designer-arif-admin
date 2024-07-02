@@ -29,6 +29,9 @@ import { EditSkill } from "./pages/EditSkill";
 import Reviews from "./pages/Reviews";
 import AddReview from "./pages/AddReview";
 import { EditReview } from "./pages/EditReview";
+import Blogs from "./pages/Blogs";
+import AddBlog from "./pages/AddBlog";
+import { EditBlog } from "./pages/EditBlog";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -81,6 +84,9 @@ function App() {
               path="/reviews/edit-review/:id"
               component={EditReview}
             />
+            <Route exact path="/blogs" component={Blogs} />
+            <Route exact path="/blogs/add-blog" component={AddBlog} />
+            <Route exact path="/blogs/edit-blog/:id" component={EditBlog} />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>
