@@ -5,6 +5,9 @@ function Home() {
   const [taskList, setTaskList] = useState([]);
   const [services, setServices] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [freeResource, setFreeResource] = useState([]);
   const { Title } = Typography;
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -89,6 +92,66 @@ function Home() {
       });
   }, [token]);
 
+  // Get all reviews
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/reviews", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setReviews(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
+  // Get all blogs
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/blogs", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setBlogs(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
+  // Get all blogs
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/freeresource", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data && data.length > 0) {
+          setFreeResource(data);
+        } else {
+          // Perform some action or set a message indicating that there is no data to reverse
+          console.log("No data found to reverse!");
+        }
+      });
+  }, [token]);
+
   const count = [
     {
       title: "Total Header Menu",
@@ -114,6 +177,29 @@ function Home() {
     {
       title: "Total Skills",
       count: `${skills && skills.length > 0 ? skills.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
+    },
+
+    {
+      title: "Total Reviews",
+      count: `${reviews && reviews.length > 0 ? reviews.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
+    },
+
+    {
+      title: "Total Blogs",
+      count: `${blogs && blogs.length > 0 ? blogs.length : 0}`,
+      icon: <i class="fa-solid fa-list-check icon"></i>,
+      bnb: "bnb",
+    },
+
+    {
+      title: "Total Free Resource",
+      count: `${
+        freeResource && freeResource.length > 0 ? freeResource.length : 0
+      }`,
       icon: <i class="fa-solid fa-list-check icon"></i>,
       bnb: "bnb",
     },

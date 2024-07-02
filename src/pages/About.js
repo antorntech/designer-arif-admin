@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const Blogs = () => {
-  const [blogs, setBlogs] = useState([]);
+const About = () => {
+  const [about, setAbout] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getBlogs = async () => {
+  const getAbout = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/blogs", {
+      fetch("http://localhost:8000/api/v1/about", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Blogs = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setBlogs(data); // Update blogs state with fetched data
+          setAbout(data); // Update about state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,13 +40,13 @@ const Blogs = () => {
   };
 
   useEffect(() => {
-    getBlogs();
+    getAbout();
   }, []);
 
-  // Delete hero content item
+  // Delete about item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/blogs/delete/${id}`, {
+    fetch(`http://localhost:8000/api/v1/about/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -54,13 +54,13 @@ const Blogs = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Blog Deleted Successfully", {
+        toast.success("About Deleted Successfully", {
           autoClose: 1000,
         });
-        getBlogs(); // Fetch updated list after successful deletion
+        getAbout(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
-        console.error("Error deleting hero content:", error);
+        console.error("Error deleting about:", error);
         setLoading(false); // Set loading state to false if there's an error
       });
   };
@@ -95,64 +95,75 @@ const Blogs = () => {
           }}
         >
           <div>
-            <h1>Blog</h1>
+            <h1>About Details</h1>
             <p>
-              Blogs are {blogs.length > 0 ? "available." : "not available."}
+              About details are{" "}
+              {about.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
-            <Button type="primary" className="primary-btn">
-              <Link to="/blogs/add-blog">
-                <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Blog
-              </Link>
-            </Button>
+            {about.length > 0 ? (
+              <Button type="primary" disabled>
+                <Link to="/about/add-about">
+                  <PlusOutlined style={{ marginRight: "5px" }} />
+                  Add About Details
+                </Link>
+              </Button>
+            ) : (
+              <Button type="primary" className="primary-btn">
+                <Link to="/about/add-about">
+                  <PlusOutlined style={{ marginRight: "5px" }} />
+                  Add About Details
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : blogs.length > 0 ? (
+        ) : about.length > 0 ? (
           <Table
-            dataSource={blogs}
+            dataSource={about}
             rowKey="_id"
             scroll={{
               x: 1000,
             }}
           >
             <Column
-              fixed="left"
               title="Banner"
               dataIndex="banner"
               key="banner"
-              width="100px"
+              width="200px"
               render={(banner) => (
                 <img
                   src={`http://localhost:8000${banner}`}
-                  alt="banner"
-                  style={{ width: "100px", height: "50px" }}
+                  style={{ width: "120px", height: "50px" }}
                 />
               )}
             />
             <Column title="Title" dataIndex="title" key="title" />
+            <Column title="Name" key="name" dataIndex="name" />
+            <Column title="Email" dataIndex="email" key="email" />
+            <Column title="Phone" dataIndex="phone" key="phone" />
+            <Column title="Address" dataIndex="address" key="address" />
             <Column
               title="Description"
               key="description"
               render={(_, record) => (
                 <Space>
                   <p style={{ color: "#000" }}>
-                    {record?.description?.slice(0, 40)}...
+                    {record.description.slice(0, 40)}...
                   </p>
                 </Space>
               )}
             />
-            <Column title="Date" dataIndex="date" key="date" width="150px" />
             <Column
               title="Action"
               key="action"
-              width="150px"
+              width="100px"
               render={(_, record) => (
                 <Space size="middle">
-                  <Link to={`/blogs/edit-blog/${record._id}`}>
+                  <Link to={`/about/edit-about/${record._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>
@@ -172,4 +183,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default About;

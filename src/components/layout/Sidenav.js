@@ -56,6 +56,19 @@ function Sidenav({ color }) {
             <span className="label">Dashboard</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="about">
+          <NavLink to="/about">
+            <span
+              className="icon"
+              style={{
+                background: page === "about" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">About Details</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="header">
           <NavLink to="/head-menu">
             <span
@@ -67,6 +80,19 @@ function Sidenav({ color }) {
               {sidenavIcon}
             </span>
             <span className="label">All Head Menu</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="footer">
+          <NavLink to="/footer-menu">
+            <span
+              className="icon"
+              style={{
+                background: page === "footer" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">All Footer Menu</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="hero">

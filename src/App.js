@@ -39,6 +39,12 @@ import Services from "./pages/Services";
 import AddService from "./pages/AddService";
 import { EditServices } from "./pages/EditService";
 import EditCertification from "./pages/EditCertification";
+import About from "./pages/About";
+import AddAbout from "./pages/AddAbout";
+import EditAbout from "./pages/EditAbout";
+import FooterMenu from "./pages/FooterMenu";
+import AddFooterMenu from "./pages/AddFooterMenu";
+import EditFooterMenu from "./pages/EditFooterMenu";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -120,6 +126,20 @@ function App() {
               exact
               path="/freeresource/edit-freeresource/:id"
               component={EditFreeResource}
+            />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/about/add-about" component={AddAbout} />
+            <Route exact path="/about/edit-about/:id" component={EditAbout} />
+            <Route exact path="/footer-menu" component={FooterMenu} />
+            <Route
+              exact
+              path="/footer-menu/add-footer-menu"
+              component={AddFooterMenu}
+            />
+            <Route
+              exact
+              path="/footer-menu/edit-footer-menu/:id"
+              component={EditFooterMenu}
             />
             <Redirect from="*" to="/dashboard" />
           </Main>

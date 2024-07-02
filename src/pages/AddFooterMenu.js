@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Button, message, Row, Col } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-const AddHeadMenu = () => {
+const AddFooterMenu = () => {
   const navigate = useHistory();
   const [form] = Form.useForm();
   const [autoPath, setAutoPath] = useState("");
@@ -26,7 +26,7 @@ const AddHeadMenu = () => {
     };
 
     // Send a POST request with JSON data
-    fetch("http://localhost:8000/api/v1/headmenu/add", {
+    fetch("http://localhost:8000/api/v1/footermenu/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,14 +42,14 @@ const AddHeadMenu = () => {
             throw new Error(errorMessage);
           } else {
             // Handle other errors
-            throw new Error("Failed to added head menu. Please try again.");
+            throw new Error("Failed to added footer menu. Please try again.");
           }
         }
         return res.json();
       })
       .then(() => {
         message.success("Head Menu Added Successful.");
-        navigate.push("/head-menu");
+        navigate.push("/footer-menu");
       })
       .catch((error) => {
         console.error(error);
@@ -61,9 +61,9 @@ const AddHeadMenu = () => {
     <>
       <div>
         <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
-          Add Header Menu
+          Add Footer Menu
         </h1>
-        <p>You can add header menu from here.</p>
+        <p>You can add footer menu from here.</p>
       </div>
       <Row gutter={[24, 0]}>
         <Col xs={24} md={12} lg={12}>
@@ -73,11 +73,11 @@ const AddHeadMenu = () => {
                 <Form.Item
                   name="label"
                   label="Label"
-                  placeholder="Enter head label"
+                  placeholder="Enter footer label"
                   rules={[
                     {
                       required: true,
-                      message: "Please enter head menu label",
+                      message: "Please enter footer menu label",
                     },
                   ]}
                 >
@@ -86,12 +86,12 @@ const AddHeadMenu = () => {
                 <Form.Item
                   name="path"
                   label="Path"
-                  placeholder="Header menu path"
+                  placeholder="Footer menu path"
                   initialValue={autoPath} // Set initial value for path
                   rules={[
                     {
                       required: true,
-                      message: "Please enter head menu path",
+                      message: "Please enter footer menu path",
                     },
                   ]}
                 >
@@ -112,4 +112,4 @@ const AddHeadMenu = () => {
   );
 };
 
-export default AddHeadMenu;
+export default AddFooterMenu;

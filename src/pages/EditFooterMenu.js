@@ -1,10 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message, Row, Col } from "antd";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom";
 
-const AddHeadMenu = () => {
+const EditFooterMenu = () => {
   const navigate = useHistory();
-  const [form] = Form.useForm();
+  const { id } = useParams();
+  const [form] = Form.useForm(); // Using Form Hooks
+  const [footerMenuData, setFooterMenuData] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/v1/footermenu/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch Footer Menu data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setFooterMenuData(data);
+        form.setFieldsValue(data); // Set form values after data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching Footer Menu data:", error);
+        message.error("Failed to fetch Footer Menu data");
+      });
+  }, [id, form]);
+
   const [autoPath, setAutoPath] = useState("");
 
   const handleLabelChange = (e) => {
@@ -16,44 +42,32 @@ const AddHeadMenu = () => {
   };
 
   const handleUpload = (values) => {
-    // Extract values from the form
-    const { label, path } = values;
-
-    // Prepare the data to be sent
     const data = {
-      label,
-      path,
+      ...footerMenuData,
+      ...values,
     };
 
-    // Send a POST request with JSON data
-    fetch("http://localhost:8000/api/v1/headmenu/add", {
-      method: "POST",
+    fetch(`http://localhost:8000/api/v1/headmenu/update/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
       body: JSON.stringify(data),
     })
-      .then(async (res) => {
+      .then((res) => {
         if (!res.ok) {
-          if (res.status === 400) {
-            // Handle the case where label already exists
-            const errorMessage = await res.text();
-            throw new Error(errorMessage);
-          } else {
-            // Handle other errors
-            throw new Error("Failed to added head menu. Please try again.");
-          }
+          throw new Error("Failed to update Footer Menu data");
         }
         return res.json();
       })
       .then(() => {
-        message.success("Head Menu Added Successful.");
+        message.success("Footer Menu data updated successfully.");
         navigate.push("/head-menu");
       })
       .catch((error) => {
         console.error(error);
-        message.error(`${error}`);
+        message.error("Failed to update Footer Menu data");
       });
   };
 
@@ -61,23 +75,28 @@ const AddHeadMenu = () => {
     <>
       <div>
         <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
-          Add Header Menu
+          Edit Footer Menu
         </h1>
-        <p>You can add header menu from here.</p>
+        <p>You can edit footer menu from here.</p>
       </div>
       <Row gutter={[24, 0]}>
         <Col xs={24} md={12} lg={12}>
-          <Form form={form} onFinish={handleUpload} layout="vertical">
+          <Form
+            form={form}
+            onFinish={handleUpload}
+            layout="vertical"
+            initialValues={footerMenuData}
+          >
             <Row gutter={[24, 0]}>
               <Col xs={24} md={12} lg={12}>
                 <Form.Item
                   name="label"
                   label="Label"
-                  placeholder="Enter head label"
+                  placeholder="Enter footer menu label"
                   rules={[
                     {
                       required: true,
-                      message: "Please enter head menu label",
+                      message: "Please enter footer menu label",
                     },
                   ]}
                 >
@@ -86,12 +105,12 @@ const AddHeadMenu = () => {
                 <Form.Item
                   name="path"
                   label="Path"
-                  placeholder="Header menu path"
+                  placeholder="Footer menu path"
                   initialValue={autoPath} // Set initial value for path
                   rules={[
                     {
                       required: true,
-                      message: "Please enter head menu path",
+                      message: "Please enter footer menu path",
                     },
                   ]}
                 >
@@ -112,4 +131,4 @@ const AddHeadMenu = () => {
   );
 };
 
-export default AddHeadMenu;
+export default EditFooterMenu;
