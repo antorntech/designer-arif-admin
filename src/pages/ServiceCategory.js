@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const Services = () => {
-  const [services, setServices] = useState([]);
+const ServiceCategory = () => {
+  const [servicecategory, setServiceCategory] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getServices = async () => {
+  const getServiceCategory = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/services", {
+      fetch("http://localhost:8000/api/v1/servicecategory", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const Services = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setServices(data); // Update services state with fetched data
+          setServiceCategory(data); // Update servicecategory state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,13 +40,13 @@ const Services = () => {
   };
 
   useEffect(() => {
-    getServices();
+    getServiceCategory();
   }, []);
 
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/services/delete/${id}`, {
+    fetch(`http://localhost:8000/api/v1/servicecategory/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -57,7 +57,7 @@ const Services = () => {
         toast.success("Service Deleted Successfully", {
           autoClose: 1000,
         });
-        getServices(); // Fetch updated list after successful deletion
+        getServiceCategory(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
         console.error("Error deleting hero content:", error);
@@ -95,51 +95,46 @@ const Services = () => {
           }}
         >
           <div>
-            <h1>Services Table</h1>
+            <h1>Service Category Table</h1>
             <p>
-              Services are{" "}
-              {services.length > 0 ? "available." : "not available."}
+              Service Category are{" "}
+              {servicecategory.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
             <Button type="primary" className="primary-btn">
-              <Link to="/add-service">
+              <Link to="/add-service-category">
                 <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Service
+                Add Service Category
               </Link>
             </Button>
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : services.length > 0 ? (
-          <Table dataSource={services} rowKey="_id">
+        ) : servicecategory.length > 0 ? (
+          <Table dataSource={servicecategory} rowKey="_id">
             <Column
               title="Banner"
               dataIndex="thumbnail"
               key="thumbnail"
               width="200px"
               render={(thumbnail) => (
-                <div
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <img src={`http://localhost:8000${thumbnail}`} alt="Banner" />
-                </div>
+                <img
+                  src={`http://localhost:8000${thumbnail}`}
+                  alt="Banner"
+                  style={{ width: "250px", height: "150px" }}
+                />
               )}
             />
             <Column title="Title" dataIndex="title" key="title" />
-            <Column title="Category" dataIndex="category" key="category" />
             <Column
               title="Action"
               key="action"
               width="100px"
               render={(_, record) => (
                 <Space size="middle">
-                  <Link to={`/edit-service/${record._id}`}>
+                  <Link to={`/edit-service-category/${record._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>
@@ -159,4 +154,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default ServiceCategory;

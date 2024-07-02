@@ -16,9 +16,6 @@ import TaskList from "./pages/TaskList";
 import AddTaskList from "./pages/AddTaskList";
 import EditTaskList from "./pages/EditTaskList";
 import EditHeroContent from "./pages/EditHeroContent";
-import Services from "./pages/Services";
-import AddService from "./pages/AddService";
-import { EditServices } from "./pages/EditServices";
 import Qualification from "./pages/Qualification";
 import AddExperience from "./pages/AddExperience";
 import AddCertification from "./pages/AddCertification";
@@ -35,6 +32,12 @@ import { EditBlog } from "./pages/EditBlog";
 import FreeResource from "./pages/FreeResource";
 import AddFreeResource from "./pages/AddFreeResource";
 import { EditFreeResource } from "./pages/EditFreeResource";
+import ServiceCategory from "./pages/ServiceCategory";
+import AddServiceCategory from "./pages/AddServiceCategory";
+import { EditServiceCategory } from "./pages/EditServiceCategory";
+import Services from "./pages/Services";
+import AddService from "./pages/AddService";
+import { EditServices } from "./pages/EditService";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -58,6 +61,17 @@ function App() {
             <Route exact path="/task-list" component={TaskList} />
             <Route exact path="/add-task-list" component={AddTaskList} />
             <Route exact path="/edit-task-list/:id" component={EditTaskList} />
+            <Route exact path="/service-category" component={ServiceCategory} />
+            <Route
+              exact
+              path="/add-service-category"
+              component={AddServiceCategory}
+            />
+            <Route
+              exact
+              path="/edit-service-category/:id"
+              component={EditServiceCategory}
+            />
             <Route exact path="/services" component={Services} />
             <Route exact path="/add-service" component={AddService} />
             <Route exact path="/edit-service/:id" component={EditServices} />

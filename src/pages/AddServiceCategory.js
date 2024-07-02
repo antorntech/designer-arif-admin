@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Form, Input, Upload, Button, message, Row, Col, Select } from "antd";
+import { Form, Input, Upload, Button, message, Row, Col } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import moment from "moment";
-import TextArea from "antd/lib/input/TextArea";
 
-const AddService = () => {
+const AddServiceCategory = () => {
   const navigate = useHistory();
-  const date = moment().format("ll");
-  const [category, setCategory] = useState("");
+
   const [thumbnailFileList, setBannerFileList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [uploading, setUploading] = useState(false);
@@ -23,12 +20,9 @@ const AddService = () => {
 
     // Append other form data
     formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("date", date);
-    formData.append("category", category);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/services/add", {
+    fetch("http://localhost:8000/api/v1/servicecategory/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -40,10 +34,10 @@ const AddService = () => {
         // Reset form
         setBannerFileList([]);
         message.success("Service Added Successfully.");
-        navigate.push("/services");
+        navigate.push("/service-category");
       })
       .catch(() => {
-        message.error("Service Add Failed.");
+        message.error("Service Category Add Failed.");
       })
       .finally(() => {
         setUploading(false);
@@ -64,18 +58,13 @@ const AddService = () => {
     fileList: thumbnailFileList,
   };
 
-  const handleCategoryChange = (value) => {
-    setCategory(value);
-    console.log(value);
-  };
-
   return (
     <>
       <div>
         <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
-          Add Service
+          Add Service Category
         </h1>
-        <p>You can add service from here.</p>
+        <p>You can add service category from here.</p>
       </div>
       <Row gutter={[24, 0]}>
         <Col xs={24} md={12} lg={12}>
@@ -94,59 +83,6 @@ const AddService = () => {
                   ]}
                 >
                   <Input />
-                </Form.Item>
-                <Form.Item
-                  name="description"
-                  label="Description"
-                  placeholder="Enter description"
-                >
-                  <TextArea rows={6} />
-                </Form.Item>
-                <Form.Item
-                  name="category"
-                  label="Category"
-                  placeholder="Enter category"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter category",
-                    },
-                  ]}
-                >
-                  <Select
-                    allowClear
-                    style={{
-                      width: "100%",
-                    }}
-                    placeholder="Please select category"
-                    options={[
-                      {
-                        value: "Logo Design",
-                        label: "Logo Design",
-                      },
-                      {
-                        value: "Branding",
-                        label: "Branding",
-                      },
-                      {
-                        value: "Print Design",
-                        label: "Print Design",
-                      },
-                      {
-                        value: "Social Media",
-                        label: "Social Media",
-                      },
-                      {
-                        value: "Animation",
-                        label: "Animation",
-                      },
-                      {
-                        value: "3d Modeling",
-                        label: "3d Modeling",
-                      },
-                    ]}
-                    onChange={handleCategoryChange}
-                  />
                 </Form.Item>
                 <Form.Item
                   name="thumbnail"
@@ -177,4 +113,4 @@ const AddService = () => {
   );
 };
 
-export default AddService;
+export default AddServiceCategory;

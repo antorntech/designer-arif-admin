@@ -51,74 +51,82 @@ const AddExperience = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form form={form} onFinish={handleUpload} layout="vertical">
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={12} lg={12}>
-              <Form.Item
-                name="starttime"
-                label="Start Time"
-                placeholder="Enter experience start time"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter experience start time",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="endtime"
-                label="End Time"
-                placeholder="Enter endtime"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter experience endtime",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter experience title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="location"
-                label="Location"
-                placeholder="Enter location"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter experience location",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-          </Row>
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Add Experience
+        </h1>
+        <p>You can add experience from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form form={form} onFinish={handleUpload} layout="vertical">
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={12} lg={12}>
+                <Form.Item
+                  name="starttime"
+                  label="Start Time"
+                  placeholder="Enter experience start time"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter experience start time",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="endtime"
+                  label="End Time"
+                  placeholder="Enter endtime"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter experience endtime",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter experience title",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="location"
+                  label="Location"
+                  placeholder="Enter location"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter experience location",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
 

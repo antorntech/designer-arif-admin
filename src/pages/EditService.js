@@ -1,5 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Upload, message } from "antd";
+import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -8,8 +9,11 @@ export const EditServices = () => {
   const { id } = useParams();
   const [form] = Form.useForm();
   const [servicesData, setServicesData] = useState({});
+  const [category, setCategory] = useState("");
   const [thumbnailFileList, setThumbnailFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
+
+  const newCategory = category ? category : servicesData.category;
 
   useEffect(() => {
     fetch(`http://localhost:8000/api/v1/services/${id}`, {
@@ -43,6 +47,8 @@ export const EditServices = () => {
     });
 
     formData.append("title", values.title);
+    formData.append("description", values.description);
+    formData.append("category", newCategory);
     setUploading(true);
     // You can use any AJAX library you like
     fetch(`http://localhost:8000/api/v1/services/update/${id}`, {
@@ -85,6 +91,11 @@ export const EditServices = () => {
     fileList: thumbnailFileList,
   };
 
+  const handleCategoryChange = (value) => {
+    setCategory(value);
+    console.log(value);
+  };
+
   return (
     <Row gutter={[24, 0]}>
       <Col xs={24} md={12} lg={12}>
@@ -110,8 +121,61 @@ export const EditServices = () => {
                 <Input />
               </Form.Item>
               <Form.Item
+                name="description"
+                label="Description"
+                placeholder="Enter description"
+              >
+                <TextArea rows={6} />
+              </Form.Item>
+              <Form.Item
+                name="category"
+                label="Category"
+                placeholder="Enter category"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter category",
+                  },
+                ]}
+              >
+                <Select
+                  allowClear
+                  style={{
+                    width: "100%",
+                  }}
+                  placeholder="Please select category"
+                  options={[
+                    {
+                      value: "Logo Design",
+                      label: "Logo Design",
+                    },
+                    {
+                      value: "Branding",
+                      label: "Branding",
+                    },
+                    {
+                      value: "Print Design",
+                      label: "Print Design",
+                    },
+                    {
+                      value: "Social Media",
+                      label: "Social Media",
+                    },
+                    {
+                      value: "Animation",
+                      label: "Animation",
+                    },
+                    {
+                      value: "3d Modeling",
+                      label: "3d Modeling",
+                    },
+                  ]}
+                  onChange={handleCategoryChange}
+                />
+              </Form.Item>
+              <Form.Item
                 name="thumbnail"
-                label="Upload Thumbnail"
+                label="Upload Banner"
                 rules={[
                   {
                     required: true,
@@ -125,8 +189,9 @@ export const EditServices = () => {
               </Form.Item>
             </Col>
           </Row>
+
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="primary-btn">
+            <Button type="primary" className="primary-btn" htmlType="submit">
               Submit
             </Button>
           </Form.Item>

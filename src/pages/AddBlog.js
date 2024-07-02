@@ -85,94 +85,102 @@ const AddBlog = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form onFinish={handleSubmit} layout="vertical">
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={24} lg={24}>
-              <Form.Item
-                name="title"
-                label="Title"
-                placeholder="Enter title"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter blog title",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                label="Description"
-                placeholder="Enter description"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter blog description",
-                  },
-                ]}
-              >
-                <TextArea rows={6} />
-              </Form.Item>
-              <Form.Item label="Tags">
-                <Input
-                  value={tagInput}
-                  onChange={handleTagInputChange}
-                  onPressEnter={handleAddTag}
-                  placeholder="Enter tags and press Enter"
-                />
-                <div style={{ marginTop: "15px", position: "relative" }}>
-                  {tags.map((tag, index) => (
-                    <Button
-                      key={index}
-                      style={{
-                        marginRight: "8px",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <span>{tag}</span>{" "}
-                      <CloseCircleOutlined
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Add Blog
+        </h1>
+        <p>You can add blog from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form onFinish={handleSubmit} layout="vertical">
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={24} lg={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  placeholder="Enter title"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter blog title",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  placeholder="Enter description"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter blog description",
+                    },
+                  ]}
+                >
+                  <TextArea rows={6} />
+                </Form.Item>
+                <Form.Item label="Tags">
+                  <Input
+                    value={tagInput}
+                    onChange={handleTagInputChange}
+                    onPressEnter={handleAddTag}
+                    placeholder="Enter tags and press Enter"
+                  />
+                  <div style={{ marginTop: "15px", position: "relative" }}>
+                    {tags.map((tag, index) => (
+                      <Button
+                        key={index}
                         style={{
-                          color: "gray",
-                          marginLeft: "5px",
-                          position: "absolute",
-                          top: "10%",
-                          fontSize: "18px",
-                          transform: "translateY(-50%)",
+                          marginRight: "8px",
+                          marginBottom: "8px",
                         }}
-                        onClick={() => handleRemoveTag(tag)}
-                      />
-                    </Button>
-                  ))}
-                </div>
-              </Form.Item>
-              <Form.Item
-                name="banner"
-                label="Upload banner"
-                rules={[
-                  {
-                    required: true,
-                    message: "",
-                  },
-                ]}
-              >
-                <Upload {...bannerFileProps}>
-                  <Button icon={<UploadOutlined />}>Select File</Button>
-                </Upload>
-              </Form.Item>
-            </Col>
-          </Row>
+                      >
+                        <span>{tag}</span>{" "}
+                        <CloseCircleOutlined
+                          style={{
+                            color: "gray",
+                            marginLeft: "5px",
+                            position: "absolute",
+                            top: "10%",
+                            fontSize: "18px",
+                            transform: "translateY(-50%)",
+                          }}
+                          onClick={() => handleRemoveTag(tag)}
+                        />
+                      </Button>
+                    ))}
+                  </div>
+                </Form.Item>
+                <Form.Item
+                  name="banner"
+                  label="Upload banner"
+                  rules={[
+                    {
+                      required: true,
+                      message: "",
+                    },
+                  ]}
+                >
+                  <Upload {...bannerFileProps}>
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
 

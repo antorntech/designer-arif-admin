@@ -95,6 +95,19 @@ function Sidenav({ color }) {
             <span className="label">Task List</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="service-category">
+          <NavLink to="/service-category">
+            <span
+              className="icon"
+              style={{
+                background: page === "service-category" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Service Category</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="services">
           <NavLink to="/services">
             <span
@@ -105,7 +118,7 @@ function Sidenav({ color }) {
             >
               {sidenavIcon}
             </span>
-            <span className="label">Services</span>
+            <span className="label">All Services</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="qualification">

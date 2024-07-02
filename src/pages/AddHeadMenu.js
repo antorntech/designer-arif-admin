@@ -58,49 +58,57 @@ const AddHeadMenu = () => {
   };
 
   return (
-    <Row gutter={[24, 0]}>
-      <Col xs={24} md={12} lg={12}>
-        <Form form={form} onFinish={handleUpload} layout="vertical">
-          <Row gutter={[24, 0]}>
-            <Col xs={24} md={12} lg={12}>
-              <Form.Item
-                name="label"
-                label="Label"
-                placeholder="Enter head label"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter head menu label",
-                  },
-                ]}
-              >
-                <Input onChange={handleLabelChange} />
-              </Form.Item>
-              <Form.Item
-                name="path"
-                label="Path"
-                placeholder="Enter path"
-                initialValue={autoPath} // Set initial value for path
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter head menu path",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            </Col>
-          </Row>
+    <>
+      <div>
+        <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+          Add Header Menu
+        </h1>
+        <p>You can add header menu from here.</p>
+      </div>
+      <Row gutter={[24, 0]}>
+        <Col xs={24} md={12} lg={12}>
+          <Form form={form} onFinish={handleUpload} layout="vertical">
+            <Row gutter={[24, 0]}>
+              <Col xs={24} md={12} lg={12}>
+                <Form.Item
+                  name="label"
+                  label="Label"
+                  placeholder="Enter head label"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter head menu label",
+                    },
+                  ]}
+                >
+                  <Input onChange={handleLabelChange} />
+                </Form.Item>
+                <Form.Item
+                  name="path"
+                  label="Path"
+                  placeholder="Enter path"
+                  initialValue={autoPath} // Set initial value for path
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter head menu path",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
 
-          <Form.Item>
-            <Button type="primary" className="primary-btn" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+            <Form.Item>
+              <Button type="primary" className="primary-btn" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
+    </>
   );
 };
 

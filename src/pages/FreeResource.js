@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal, Tag } from "antd";
+import { Space, Table, Button, Modal } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
