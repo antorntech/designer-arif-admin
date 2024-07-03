@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Form, Input, Upload, Button, message, Row, Col } from "antd";
+import { Form, Input, Upload, Button, message, Row, Col, Select } from "antd";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const AddServiceCategory = () => {
   const navigate = useHistory();
-
+  const [link, setLink] = useState("");
   const [thumbnailFileList, setBannerFileList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [uploading, setUploading] = useState(false);
@@ -20,9 +20,10 @@ const AddServiceCategory = () => {
 
     // Append other form data
     formData.append("title", values.title);
+    formData.append("link", values.link);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/servicecategory/add", {
+    fetch("https://api.designerarif.com/api/v1/servicecategory/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -58,6 +59,11 @@ const AddServiceCategory = () => {
     fileList: thumbnailFileList,
   };
 
+  const handleLinkChange = (value) => {
+    setLink(value);
+    console.log(value);
+  };
+
   return (
     <>
       <div>
@@ -83,6 +89,52 @@ const AddServiceCategory = () => {
                   ]}
                 >
                   <Input />
+                </Form.Item>
+                <Form.Item
+                  name="link"
+                  label="Link"
+                  placeholder="Enter link"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter link",
+                    },
+                  ]}
+                >
+                  <Select
+                    allowClear
+                    style={{
+                      width: "100%",
+                    }}
+                    placeholder="Please select link"
+                    options={[
+                      {
+                        label: "All Logo Design",
+                        value: "all-logo-design",
+                      },
+                      {
+                        label: "All Branding",
+                        value: "all-branding",
+                      },
+                      {
+                        label: "All Print Design",
+                        value: "all-print-design",
+                      },
+                      {
+                        label: "All Social Media",
+                        value: "all-social-media",
+                      },
+                      {
+                        label: "All Animation",
+                        value: "all-animation",
+                      },
+                      {
+                        label: "All 3d Modeling",
+                        value: "all-3d-modeling",
+                      },
+                    ]}
+                    onChange={handleLinkChange}
+                  />
                 </Form.Item>
                 <Form.Item
                   name="thumbnail"

@@ -26,7 +26,7 @@ const AddFooterMenu = () => {
     };
 
     // Send a POST request with JSON data
-    fetch("http://localhost:8000/api/v1/footermenu/add", {
+    fetch("https://api.designerarif.com/api/v1/footermenu/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

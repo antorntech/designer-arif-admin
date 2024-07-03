@@ -21,7 +21,7 @@ const FreeResource = () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/freeresource", {
+      fetch("https://api.designerarif.com/api/v1/freeresource", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const FreeResource = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/freeresource/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/freeresource/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -127,7 +127,7 @@ const FreeResource = () => {
               width="100px"
               render={(banner) => (
                 <img
-                  src={`http://localhost:8000${banner}`}
+                  src={`https://api.designerarif.com${banner}`}
                   alt="banner"
                   style={{ width: "100px", height: "50px" }}
                 />

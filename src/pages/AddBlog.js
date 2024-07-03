@@ -25,7 +25,7 @@ const AddBlog = () => {
     formData.append("date", date);
     formData.append("tags", tags); // Convert tags array to comma-separated string
     console.log(values);
-    fetch("http://localhost:8000/api/v1/blogs/add", {
+    fetch("https://api.designerarif.com/api/v1/blogs/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

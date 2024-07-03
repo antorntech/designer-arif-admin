@@ -9,7 +9,7 @@ const EditFooterMenu = () => {
   const [footerMenuData, setFooterMenuData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/footermenu/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/footermenu/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -47,7 +47,7 @@ const EditFooterMenu = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/footermenu/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/footermenu/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

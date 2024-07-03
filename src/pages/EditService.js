@@ -16,7 +16,7 @@ export const EditServices = () => {
   const newCategory = category ? category : servicesData.category;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/services/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/services/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -51,7 +51,7 @@ export const EditServices = () => {
     formData.append("category", newCategory);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/services/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/services/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

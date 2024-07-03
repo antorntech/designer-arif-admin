@@ -9,7 +9,7 @@ const EditHeadMenu = () => {
   const [headMenuData, setHeadMenuData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/headmenu/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/headmenu/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -47,7 +47,7 @@ const EditHeadMenu = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/headmenu/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/headmenu/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -13,7 +13,7 @@ const SingleProfile = () => {
   console.log(singleUser);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/user/${id}`)
+    fetch(`https://api.designerarif.com/api/v1/user/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUser(data.data);
@@ -67,7 +67,7 @@ const SingleProfile = () => {
             <div>
               <img
                 className="avatar"
-                src={`http://localhost:8000/${singleUser.userPhoto}`}
+                src={`https://api.designerarif.com/${singleUser.userPhoto}`}
                 alt="avatar.jpg"
               />
             </div>

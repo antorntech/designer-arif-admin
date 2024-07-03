@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Upload, message } from "antd";
+import { Button, Col, Form, Input, Row, Select, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -7,12 +7,13 @@ export const EditServiceCategory = () => {
   const navigate = useHistory();
   const { id } = useParams();
   const [form] = Form.useForm();
+  const [link, setLink] = useState("");
   const [serviceCategoryData, setServiceCategoryData] = useState({});
   const [thumbnailFileList, setThumbnailFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/servicecategory/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/servicecategory/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -45,7 +46,7 @@ export const EditServiceCategory = () => {
     formData.append("title", values.title);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/servicecategory/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/servicecategory/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -85,6 +86,11 @@ export const EditServiceCategory = () => {
     fileList: thumbnailFileList,
   };
 
+  const handleLinkChange = (value) => {
+    setLink(value);
+    console.log(value);
+  };
+
   return (
     <>
       <div>
@@ -115,6 +121,52 @@ export const EditServiceCategory = () => {
                   ]}
                 >
                   <Input />
+                </Form.Item>
+                <Form.Item
+                  name="link"
+                  label="Link"
+                  placeholder="Enter link"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter link",
+                    },
+                  ]}
+                >
+                  <Select
+                    allowClear
+                    style={{
+                      width: "100%",
+                    }}
+                    placeholder="Please select link"
+                    options={[
+                      {
+                        label: "All Logo Design",
+                        value: "all-logo-design",
+                      },
+                      {
+                        label: "All Branding",
+                        value: "all-branding",
+                      },
+                      {
+                        label: "All Print Design",
+                        value: "all-print-design",
+                      },
+                      {
+                        label: "All Social Media",
+                        value: "all-social-media",
+                      },
+                      {
+                        label: "All Animation",
+                        value: "all-animation",
+                      },
+                      {
+                        label: "All 3d Modeling",
+                        value: "all-3d-modeling",
+                      },
+                    ]}
+                    onChange={handleLinkChange}
+                  />
                 </Form.Item>
                 <Form.Item
                   name="thumbnail"

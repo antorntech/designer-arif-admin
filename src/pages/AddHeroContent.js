@@ -23,7 +23,7 @@ const AddHeroContent = () => {
     formData.append("description", values.description);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/herocontent/add", {
+    fetch("https://api.designerarif.com/api/v1/herocontent/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

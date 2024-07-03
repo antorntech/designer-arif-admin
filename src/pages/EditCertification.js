@@ -9,7 +9,7 @@ const EditCertification = () => {
   const [certificationData, setCertificationData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/certification/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/certification/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -37,7 +37,7 @@ const EditCertification = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/certification/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/certification/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

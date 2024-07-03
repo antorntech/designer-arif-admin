@@ -20,7 +20,7 @@ const Qualification = () => {
   const getExperience = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/experience", {
+      fetch("https://api.designerarif.com/api/v1/experience", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ const Qualification = () => {
   const getCertification = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/certification", {
+      fetch("https://api.designerarif.com/api/v1/certification", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const Qualification = () => {
       okType: "danger",
 
       onOk() {
-        fetch(`http://localhost:8000/api/v1/experience/delete/${id}`, {
+        fetch(`https://api.designerarif.com/api/v1/experience/delete/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",

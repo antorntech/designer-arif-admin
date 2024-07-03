@@ -15,7 +15,7 @@ const AddService = () => {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/servicecategory`, {
+    fetch(`https://api.designerarif.com/api/v1/servicecategory`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -51,7 +51,7 @@ const AddService = () => {
     formData.append("category", category);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/services/add", {
+    fetch("https://api.designerarif.com/api/v1/services/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

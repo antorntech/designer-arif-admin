@@ -22,7 +22,7 @@ const AddFreeResource = () => {
     formData.append("description", values.description);
     formData.append("date", date);
     formData.append("link", values.link);
-    fetch("http://localhost:8000/api/v1/freeresource/add", {
+    fetch("https://api.designerarif.com/api/v1/freeresource/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

@@ -32,7 +32,7 @@ const AddSkill = () => {
     formData.append("percentance", values.percentance);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/skills/add", {
+    fetch("https://api.designerarif.com/api/v1/skills/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

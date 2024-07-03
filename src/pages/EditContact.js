@@ -12,7 +12,7 @@ const EditContact = () => {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/contact/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/contact/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -52,7 +52,7 @@ const EditContact = () => {
     setUploading(true);
 
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/contact/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/contact/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

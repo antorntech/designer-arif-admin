@@ -14,7 +14,7 @@ function Home() {
 
   // Get all head menus
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/headmenu", {
+    fetch("https://api.designerarif.com/api/v1/headmenu", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ function Home() {
 
   // Get all task list
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/tasklist", {
+    fetch("https://api.designerarif.com/api/v1/tasklist", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function Home() {
 
   // Get all services
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/services", {
+    fetch("https://api.designerarif.com/api/v1/services", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ function Home() {
 
   // Get all skills
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/skills", {
+    fetch("https://api.designerarif.com/api/v1/skills", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -94,7 +94,7 @@ function Home() {
 
   // Get all reviews
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/reviews", {
+    fetch("https://api.designerarif.com/api/v1/reviews", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -114,7 +114,7 @@ function Home() {
 
   // Get all blogs
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/blogs", {
+    fetch("https://api.designerarif.com/api/v1/blogs", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -134,7 +134,7 @@ function Home() {
 
   // Get all blogs
   useEffect(() => {
-    fetch("http://localhost:8000/api/v1/freeresource", {
+    fetch("https://api.designerarif.com/api/v1/freeresource", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

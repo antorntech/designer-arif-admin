@@ -9,7 +9,7 @@ const EditTaskList = () => {
   const [taskListData, setTaskListData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/tasklist/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/tasklist/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -37,7 +37,7 @@ const EditTaskList = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/tasklist/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/tasklist/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

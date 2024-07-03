@@ -21,7 +21,7 @@ const Skills = () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/skills", {
+      fetch("https://api.designerarif.com/api/v1/skills", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const Skills = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/skills/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/skills/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -120,7 +120,7 @@ const Skills = () => {
               width="100px"
               render={(skillphoto) => (
                 <img
-                  src={`http://localhost:8000${skillphoto}`}
+                  src={`https://api.designerarif.com${skillphoto}`}
                   alt="skillphoto"
                   style={{ width: "100px", height: "50px" }}
                 />

@@ -18,7 +18,7 @@ const TaskList = () => {
   const getTaskList = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/tasklist", {
+      fetch("https://api.designerarif.com/api/v1/tasklist", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const TaskList = () => {
       okType: "danger",
 
       onOk() {
-        fetch(`http://localhost:8000/api/v1/tasklist/delete/${id}`, {
+        fetch(`https://api.designerarif.com/api/v1/tasklist/delete/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",

@@ -27,7 +27,7 @@ const AddAbout = () => {
     formData.append("address", values.address);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/about/add", {
+    fetch("https://api.designerarif.com/api/v1/about/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

@@ -13,7 +13,7 @@ export const EditBlog = () => {
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/blogs/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/blogs/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -48,7 +48,7 @@ export const EditBlog = () => {
     formData.append("description", values.description);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/blogs/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/blogs/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

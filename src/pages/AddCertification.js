@@ -19,7 +19,7 @@ const AddCertification = () => {
     };
 
     // Send a POST request with JSON data
-    fetch("http://localhost:8000/api/v1/certification/add", {
+    fetch("https://api.designerarif.com/api/v1/certification/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

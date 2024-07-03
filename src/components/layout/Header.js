@@ -131,7 +131,7 @@ function Header({ placement, onPress }) {
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    fetch("http://localhost:8000/api/v1/admin", {
+    fetch("https://api.designerarif.com/api/v1/admin", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +147,7 @@ function Header({ placement, onPress }) {
 
   const [form] = Form.useForm();
   const onFinish = (values) => {
-    fetch(`http://localhost:8000/api/v1/admin/${admin}`, {
+    fetch(`https://api.designerarif.com/api/v1/admin/${admin}`, {
       method: "PUT",
       body: JSON.stringify(values),
       headers: {

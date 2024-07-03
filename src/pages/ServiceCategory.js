@@ -21,7 +21,7 @@ const ServiceCategory = () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/servicecategory", {
+      fetch("https://api.designerarif.com/api/v1/servicecategory", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const ServiceCategory = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/servicecategory/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/servicecategory/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -121,13 +121,14 @@ const ServiceCategory = () => {
               width="200px"
               render={(thumbnail) => (
                 <img
-                  src={`http://localhost:8000${thumbnail}`}
+                  src={`https://api.designerarif.com${thumbnail}`}
                   alt="Banner"
                   style={{ width: "250px", height: "150px" }}
                 />
               )}
             />
             <Column title="Title" dataIndex="title" key="title" />
+            <Column title="Link" dataIndex="link" key="link" />
             <Column
               title="Action"
               key="action"

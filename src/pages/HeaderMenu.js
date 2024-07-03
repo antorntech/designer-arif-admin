@@ -18,7 +18,7 @@ const HeaderMenu = () => {
   const getHeadMenus = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/headmenu", {
+      fetch("https://api.designerarif.com/api/v1/headmenu", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const HeaderMenu = () => {
       okType: "danger",
 
       onOk() {
-        fetch(`http://localhost:8000/api/v1/headmenu/delete/${id}`, {
+        fetch(`https://api.designerarif.com/api/v1/headmenu/delete/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",

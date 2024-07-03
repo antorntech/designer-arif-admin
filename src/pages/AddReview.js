@@ -34,7 +34,7 @@ const AddReview = () => {
     formData.append("review", values.review);
     setUploading(true);
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/reviews/add", {
+    fetch("https://api.designerarif.com/api/v1/reviews/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

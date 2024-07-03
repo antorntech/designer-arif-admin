@@ -9,7 +9,7 @@ const EditExperience = () => {
   const [experienceData, setExperienceData] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/experience/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/experience/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -37,7 +37,7 @@ const EditExperience = () => {
       ...values,
     };
 
-    fetch(`http://localhost:8000/api/v1/experience/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/experience/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

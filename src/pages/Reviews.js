@@ -21,7 +21,7 @@ const Reviews = () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/reviews", {
+      fetch("https://api.designerarif.com/api/v1/reviews", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const Reviews = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/reviews/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/reviews/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -120,7 +120,7 @@ const Reviews = () => {
               width="100px"
               render={(avatar) => (
                 <img
-                  src={`http://localhost:8000${avatar}`}
+                  src={`https://api.designerarif.com${avatar}`}
                   alt="avatar"
                   style={{ width: "100px", height: "50px" }}
                 />
