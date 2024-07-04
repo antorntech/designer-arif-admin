@@ -1,18 +1,7 @@
 import { useState, useEffect } from "react";
-
-import {
-  Row,
-  Col,
-  Button,
-  Avatar,
-  Input,
-  Drawer,
-  Typography,
-  Form,
-} from "antd";
-
-import { SearchOutlined } from "@ant-design/icons";
-import avtar from "../../assets/images/team-2.jpg";
+import { Row, Col, Button, Input, Drawer, Typography, Form } from "antd";
+import { BellOutlined, SearchOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 
 const wifi = [
@@ -113,7 +102,7 @@ const toggler = [
 
 function Header({ placement, onPress }) {
   const { Title, Text } = Typography;
-
+  const navigate = useHistory();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => window.scrollTo(0, 0));
@@ -175,6 +164,27 @@ function Header({ placement, onPress }) {
     console.log("Failed:", errorInfo);
   };
 
+  const showNotificaton = () => {
+    navigate.push("/notification");
+  };
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    fetch("https://api.designerarif.com/api/v1/contact", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNotifications(data);
+      });
+  }, [count]);
+
   return (
     <>
       {/* <div className="setting-drwer" onClick={showDrawer}>
@@ -200,6 +210,13 @@ function Header({ placement, onPress }) {
           </div>
         </Col> */}
         <Col span={24} md={24} className="header-control">
+          <Button
+            onClick={handleLogout}
+            type="primary"
+            style={{ background: "#0bb0ba", border: "none", color: "white" }}
+          >
+            Logout
+          </Button>
           <Button type="link" onClick={showDrawer}>
             {logsetting}
           </Button>
@@ -210,6 +227,7 @@ function Header({ placement, onPress }) {
           >
             {toggler}
           </Button>
+
           <Drawer
             className="settings-drawer"
             mask={true}
@@ -281,12 +299,14 @@ function Header({ placement, onPress }) {
               </div>
             </div>
           </Drawer>
-          <Button
-            onClick={handleLogout}
-            type="primary"
-            style={{ background: "#0bb0ba", border: "none", color: "white" }}
-          >
-            Logout
+
+          <Button type="link" onClick={showNotificaton}>
+            <div className="notification">
+              <BellOutlined />
+              <div className="notification-count">
+                {notifications?.length ? notifications?.length : 0}
+              </div>
+            </div>
           </Button>
         </Col>
       </Row>

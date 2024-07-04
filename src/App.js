@@ -45,6 +45,7 @@ import EditAbout from "./pages/EditAbout";
 import FooterMenu from "./pages/FooterMenu";
 import AddFooterMenu from "./pages/AddFooterMenu";
 import EditFooterMenu from "./pages/EditFooterMenu";
+import Notification from "./pages/Notification";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -141,6 +142,7 @@ function App() {
               path="/footer-menu/edit-footer-menu/:id"
               component={EditFooterMenu}
             />
+            <Route exact path="/notification" component={Notification} />
             <Redirect from="*" to="/dashboard" />
           </Main>
         </Switch>
