@@ -36,6 +36,11 @@ body {
   animation: animate 1.5s linear infinite;
 }
 
+.notification-count.stopped {
+  animation-play-state: paused; /* Pause the animation */
+  opacity: 0; /* Hide the count when animation is paused */
+}
+
 @keyframes animate {
   0% {
     opacity: 0;
