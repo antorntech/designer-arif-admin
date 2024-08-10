@@ -137,7 +137,7 @@ const About = () => {
               render={(banner) => (
                 <img
                   src={`https://api.designerarif.com${banner}`}
-                  style={{ width: "120px", height: "50px" }}
+                  style={{ width: "100px", height: "80px" }}
                 />
               )}
             />

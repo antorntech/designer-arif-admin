@@ -46,6 +46,8 @@ import FooterMenu from "./pages/FooterMenu";
 import AddFooterMenu from "./pages/AddFooterMenu";
 import EditFooterMenu from "./pages/EditFooterMenu";
 import Notification from "./pages/Notification";
+import Slider from "./pages/Slider";
+import AddSlider from "./pages/AddSlider";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -59,6 +61,8 @@ function App() {
             <Route exact path="/head-menu" component={HeaderMenu} />
             <Route exact path="/add-head-menu" component={AddHeadMenu} />
             <Route exact path="/edit-head-menu/:id" component={EditHeadMenu} />
+            <Route exact path="/slider" component={Slider} />
+            <Route exact path="/slider/add-slider" component={AddSlider} />
             <Route exact path="/hero-content" component={HeroContent} />
             <Route exact path="/add-hero-content" component={AddHeroContent} />
             <Route

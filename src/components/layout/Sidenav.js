@@ -95,7 +95,20 @@ function Sidenav({ color }) {
             <span className="label">All Footer Menu</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="hero">
+        <Menu.Item key="slider">
+          <NavLink to="/slider">
+            <span
+              className="icon"
+              style={{
+                background: page === "slider" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Slider</span>
+          </NavLink>
+        </Menu.Item>
+        {/* <Menu.Item key="hero">
           <NavLink to="/hero-content">
             <span
               className="icon"
@@ -107,7 +120,7 @@ function Sidenav({ color }) {
             </span>
             <span className="label">Hero Content</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="tasklist">
           <NavLink to="/task-list">
             <span
