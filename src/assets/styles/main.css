@@ -3120,3 +3120,54 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   path {
   fill: #8c8c8c;
 }
+
+/* slider page style */
+.slider-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.slider-main {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #141414;
+  border: 1px solid #0bb0ba;
+}
+.slider-card {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-card h1 {
+  color: #fff;
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.slider-card .desktop-img {
+  width: 350px;
+  height: 250px;
+  border: 1px solid #0bb0ba;
+}
+
+.slider-card .mobile-img {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #0bb0ba;
+}
+
+.slider-btn {
+  gap: 10px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

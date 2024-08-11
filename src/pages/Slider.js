@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal } from "antd";
+import { Space, Table, Button, Modal, Row, Col } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -54,7 +54,7 @@ const Slider = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("Blog Deleted Successfully", {
+        toast.success("Slider Deleted Successfully", {
           autoClose: 1000,
         });
         getSlider(); // Fetch updated list after successful deletion
@@ -103,57 +103,46 @@ const Slider = () => {
             </p>
           </div>
           <div>
-            <Button type="primary" className="primary-btn">
-              <Link to="/slider/add-slider">
-                <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Slider
-              </Link>
-            </Button>
+            {slider.length < 4 ? (
+              <Button type="primary" className="primary-btn">
+                <Link to="/slider/add-slider">
+                  <PlusOutlined style={{ marginRight: "5px" }} />
+                  Add Slider
+                </Link>
+              </Button>
+            ) : null}
           </div>
         </div>
         {loading ? (
           <Loader />
         ) : slider.length > 0 ? (
-          //   <Table dataSource={slider} rowKey="_id">
-          //     <Column
-          //       title="Desktop Photo"
-          //       dataIndex="desktopPhoto"
-          //       key="desktopPhoto"
-          //       render={(_, record) => (
-          //         <img
-          //           src={`http://localhost:8000${record.desktopPhoto}`}
-          //           style={{ width: "150px", height: "150px" }}
-          //         />
-          //       )}
-          //     />
-          //     <Column
-          //       title="Action"
-          //       key="action"
-          //       width="100px"
-          //       render={(_, record) => (
-          //         <Space size="middle">
-          //           <Link to={`/slider/edit-slider/${record._id}`}>
-          //             <Button type="primary">
-          //               <EditOutlined />
-          //             </Button>
-          //           </Link>
-          //           <Button type="danger" onClick={() => showConfirm(record._id)}>
-          //             <DeleteOutlined />
-          //           </Button>
-          //         </Space>
-          //       )}
-          //     />
-          //   </Table>
-          <div>
+          <div className="slider-container">
             {slider.map((slider) => (
-              <div>
-                <div>
-                  <img
-                    src={`http://localhost:8000${slider.desktopPhoto}`}
-                    style={{ width: "150px", height: "150px" }}
-                  />
+              <div key={slider._id} className="slider-main">
+                <div className="slider-card">
+                  <div>
+                    <h1>Desktop View Photo</h1>
+                    <img
+                      className="desktop-img"
+                      src={`http://localhost:8000${slider.desktopPhoto}`}
+                    />
+                  </div>
+                  {slider.mobilePhoto ? (
+                    <div>
+                      <h1>Mobile View Photo</h1>
+                      <img
+                        className="mobile-img"
+                        src={`http://localhost:8000${slider.mobilePhoto}`}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <h1>No Mobile View Photo</h1>
+                      <img src="https://placehold.co/200x250" />
+                    </div>
+                  )}
                 </div>
-                <div>
+                <div className="slider-btn">
                   <Link to={`/slider/edit-slider/${slider._id}`}>
                     <Button type="primary">
                       <EditOutlined />

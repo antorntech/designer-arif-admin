@@ -101,14 +101,17 @@ const AddSlider = () => {
           <Form onFinish={handleUpload} layout="vertical">
             <Row gutter={[24, 0]}>
               <Col xs={24} md={24} lg={24}>
-                <Form.Item name="mobilePhoto" label="Upload Mobile Photo">
+                <Form.Item
+                  name="mobilePhoto"
+                  label="Upload Mobile Photo (W-330px) (H-600px)"
+                >
                   <Upload {...mobilePhotoFileProps}>
                     <Button icon={<UploadOutlined />}>Select File</Button>
                   </Upload>
                 </Form.Item>
                 <Form.Item
                   name="desktopPhoto"
-                  label="Upload Desktop Photo"
+                  label="Upload Desktop Photo (W-1450px) (H-650px)"
                   rules={[
                     {
                       required: true,
