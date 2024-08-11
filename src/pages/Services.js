@@ -115,7 +115,7 @@ const Services = () => {
         ) : services.length > 0 ? (
           <Table dataSource={services} rowKey="_id">
             <Column
-              title="Banner"
+              title="Thumbnail"
               dataIndex="thumbnail"
               key="thumbnail"
               width="200px"
@@ -129,6 +129,26 @@ const Services = () => {
                 >
                   <img
                     src={`https://api.designerarif.com${thumbnail}`}
+                    alt="Banner"
+                  />
+                </div>
+              )}
+            />
+            <Column
+              title="Main Photo"
+              dataIndex="mainPhoto"
+              key="mainPhoto"
+              width="200px"
+              render={(mainPhoto) => (
+                <div
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={`https://api.designerarif.com${mainPhoto}`}
                     alt="Banner"
                   />
                 </div>

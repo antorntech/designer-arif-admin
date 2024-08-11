@@ -14,7 +14,7 @@ export const EditSlider = () => {
   const [desktopPhotoFileList, setDesktopPhotoFileList] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/slider/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/slider/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -49,7 +49,7 @@ export const EditSlider = () => {
 
     setUploading(true);
     // You can use any AJAX library you like
-    fetch(`http://localhost:8000/api/v1/slider/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/slider/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

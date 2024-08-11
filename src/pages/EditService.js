@@ -10,7 +10,9 @@ export const EditServices = () => {
   const [form] = Form.useForm();
   const [servicesData, setServicesData] = useState({});
   const [category, setCategory] = useState("");
+  const [serviceCategory, setServiceCategory] = useState([]);
   const [thumbnailFileList, setThumbnailFileList] = useState([]);
+  const [mainPhotoFileList, setMainPhotoFileList] = useState([]);
   const [uploading, setUploading] = useState(false);
 
   const newCategory = category ? category : servicesData.category;
@@ -38,12 +40,39 @@ export const EditServices = () => {
       });
   }, [id, form]);
 
+  useEffect(() => {
+    fetch(`https://api.designerarif.com/api/v1/servicecategory`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch Services data");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setServiceCategory(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Service data:", error);
+        message.error("Failed to fetch Service data");
+      });
+  }, []);
+
   const handleUpload = (values) => {
     const formData = new FormData();
 
     // Append user photo file to formData
     thumbnailFileList.forEach((file) => {
       formData.append("thumbnail", file);
+    });
+
+    // Append user photo file to formData
+    mainPhotoFileList.forEach((file) => {
+      formData.append("mainPhoto", file);
     });
 
     formData.append("title", values.title);
@@ -91,10 +120,29 @@ export const EditServices = () => {
     fileList: thumbnailFileList,
   };
 
+  const mainPhotoFileProps = {
+    onRemove: (file) => {
+      const index = mainPhotoFileList.indexOf(file);
+      const newFileList = mainPhotoFileList.slice();
+      newFileList.splice(index, 1);
+      setMainPhotoFileList(newFileList);
+    },
+    beforeUpload: (file) => {
+      setMainPhotoFileList([...mainPhotoFileList, file]);
+      return false; // Prevent default upload behavior
+    },
+    fileList: mainPhotoFileList,
+  };
+
   const handleCategoryChange = (value) => {
     setCategory(value);
     console.log(value);
   };
+
+  const serviceOptions = serviceCategory.map((category) => ({
+    label: category.title,
+    value: category.title,
+  }));
 
   return (
     <>
@@ -114,17 +162,7 @@ export const EditServices = () => {
           >
             <Row gutter={[24, 0]}>
               <Col xs={24} md={24} lg={24}>
-                <Form.Item
-                  name="title"
-                  label="Title"
-                  placeholder="Enter title"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter service title",
-                    },
-                  ]}
-                >
+                <Form.Item name="title" label="Title" placeholder="Enter title">
                   <Input />
                 </Form.Item>
                 <Form.Item
@@ -138,62 +176,36 @@ export const EditServices = () => {
                   name="category"
                   label="Category"
                   placeholder="Enter category"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter category",
-                    },
-                  ]}
                 >
                   <Select
                     allowClear
                     style={{
                       width: "100%",
+                      height: "40px",
+                      lineHeight: "40px",
                     }}
                     placeholder="Please select category"
-                    options={[
-                      {
-                        value: "Logo Design",
-                        label: "Logo Design",
-                      },
-                      {
-                        value: "Branding",
-                        label: "Branding",
-                      },
-                      {
-                        value: "Print Design",
-                        label: "Print Design",
-                      },
-                      {
-                        value: "Social Media",
-                        label: "Social Media",
-                      },
-                      {
-                        value: "Animation",
-                        label: "Animation",
-                      },
-                      {
-                        value: "3d Modeling",
-                        label: "3d Modeling",
-                      },
-                    ]}
+                    options={serviceOptions}
                     onChange={handleCategoryChange}
                   />
                 </Form.Item>
-                <Form.Item
-                  name="thumbnail"
-                  label="Upload Banner"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter thumbnail",
-                    },
-                  ]}
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "30px" }}
                 >
-                  <Upload {...thumbnailFileProps}>
-                    <Button icon={<UploadOutlined />}>Select File</Button>
-                  </Upload>
-                </Form.Item>
+                  <Form.Item
+                    name="thumbnail"
+                    label="Upload Thumbnail (W-350px) (H-380px)"
+                  >
+                    <Upload {...thumbnailFileProps}>
+                      <Button icon={<UploadOutlined />}>Select File</Button>
+                    </Upload>
+                  </Form.Item>
+                  <Form.Item name="mainPhoto" label="Upload Main Photo">
+                    <Upload {...mainPhotoFileProps}>
+                      <Button icon={<UploadOutlined />}>Select File</Button>
+                    </Upload>
+                  </Form.Item>
+                </div>
               </Col>
             </Row>
 

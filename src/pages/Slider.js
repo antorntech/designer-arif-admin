@@ -21,7 +21,7 @@ const Slider = () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/slider", {
+      fetch("https://api.designerarif.com/api/v1/slider", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const Slider = () => {
   // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/slider/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/slider/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -124,7 +124,7 @@ const Slider = () => {
                     <h1>Desktop View Photo</h1>
                     <img
                       className="desktop-img"
-                      src={`http://localhost:8000${slider.desktopPhoto}`}
+                      src={`https://api.designerarif.com${slider.desktopPhoto}`}
                     />
                   </div>
                   {slider.mobilePhoto ? (
@@ -132,7 +132,7 @@ const Slider = () => {
                       <h1>Mobile View Photo</h1>
                       <img
                         className="mobile-img"
-                        src={`http://localhost:8000${slider.mobilePhoto}`}
+                        src={`https://api.designerarif.com${slider.mobilePhoto}`}
                       />
                     </div>
                   ) : (

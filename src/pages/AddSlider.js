@@ -34,7 +34,7 @@ const AddSlider = () => {
     setUploading(true);
 
     // You can use any AJAX library you like
-    fetch("http://localhost:8000/api/v1/slider/addSlider", {
+    fetch("https://api.designerarif.com/api/v1/slider/addSlider", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
