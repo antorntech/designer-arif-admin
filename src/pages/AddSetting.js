@@ -18,7 +18,7 @@ const AddSetting = () => {
 
     setUploading(true);
 
-    fetch("http://localhost:8000/api/v1/settings/add", {
+    fetch("https://api.designerarif.com/api/v1/settings/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -29,11 +29,11 @@ const AddSetting = () => {
       .then(() => {
         setSettingPhotoFileList([]);
         setPreviewImage(null); // Reset preview image
-        message.success("Setting Added Successfully.");
+        message.success("Logo Added Successfully.");
         navigate.push("/settings");
       })
       .catch(() => {
-        message.error("Setting Add Failed.");
+        message.error("Logo Add Failed.");
       })
       .finally(() => {
         setUploading(false);

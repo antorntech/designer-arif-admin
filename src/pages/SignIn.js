@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/s.png";
 import {
   Button,
@@ -15,6 +15,36 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
+  const [mainLogo, setMainLogo] = useState("");
+
+  const getSettings = async () => {
+    setLoading(true); // Set loading state to true
+    const token = JSON.parse(localStorage.getItem("token")); // Get token from local storage
+    try {
+      const response = await fetch(
+        "https://api.designerarif.com/api/v1/settings",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Set token in Authorization header
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setMainLogo(data[0]); // Update settings state with fetched data
+      setLoading(false); // Set loading state to false after data is fetched
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Set loading state to false if there's an error
+    }
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, []);
+
   const onFinish = (values) => {
     if (values) {
       fetch("https://api.designerarif.com/api/v1/admin/login", {
@@ -91,7 +121,15 @@ const SignIn = () => {
               md={{ span: 24 }}
             >
               <div style={{ textAlign: "center", margin: "10px 0" }}>
-                <img src={logo} alt="logo" width="300px" />
+                <img
+                  src={
+                    mainLogo
+                      ? `https://api.designerarif.com${mainLogo.logoPic}`
+                      : logo
+                  }
+                  alt="logo"
+                  width="200px"
+                />
               </div>
               <Title
                 className="font-regular text-muted text-center mb-4"

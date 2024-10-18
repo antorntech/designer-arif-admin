@@ -14,7 +14,7 @@ export const EditSetting = () => {
 
   // Fetch setting data on component mount
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/settings/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/settings/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -28,7 +28,7 @@ export const EditSetting = () => {
         setSettingData(data);
         form.setFieldsValue(data);
         if (data.logoPic) {
-          setPreviewImage(`http://localhost:8000${data.logoPic}`); // Set preview image
+          setPreviewImage(`https://api.designerarif.com${data.logoPic}`); // Set preview image
         }
       })
       .catch((error) => {
@@ -47,7 +47,7 @@ export const EditSetting = () => {
 
     setUploading(true);
 
-    fetch(`http://localhost:8000/api/v1/settings/update/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/settings/update/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -59,7 +59,7 @@ export const EditSetting = () => {
         return res.json();
       })
       .then(() => {
-        message.success("Setting updated successfully.");
+        message.success("Logo updated successfully.");
         navigate.push("/settings");
       })
       .catch((error) => {

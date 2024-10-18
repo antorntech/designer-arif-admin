@@ -20,13 +20,16 @@ const Settings = () => {
     setLoading(true);
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      const response = await fetch("http://localhost:8000/api/v1/settings", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://api.designerarif.com/api/v1/settings",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       setSettings(data);
     } catch (error) {
@@ -43,7 +46,7 @@ const Settings = () => {
   const handleDelete = async (id) => {
     setLoading(true);
     try {
-      await fetch(`http://localhost:8000/api/v1/settings/delete/${id}`, {
+      await fetch(`https://api.designerarif.com/api/v1/settings/delete/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -85,11 +88,13 @@ const Settings = () => {
             Settings are {settings.length > 0 ? "available." : "not available."}
           </p>
         </div>
-        <Button type="primary" className="primary-btn">
-          <Link to="/settings/add-setting">
-            <PlusOutlined style={{ marginRight: 5 }} /> Add Setting
-          </Link>
-        </Button>
+        {settings.length > 0 ? null : (
+          <Button type="primary" className="primary-btn">
+            <Link to="/settings/add-setting">
+              <PlusOutlined style={{ marginRight: 5 }} /> Add Setting
+            </Link>
+          </Button>
+        )}
       </div>
 
       {loading ? (
@@ -103,7 +108,7 @@ const Settings = () => {
                   style={{ padding: 20 }}
                   cover={
                     <img
-                      src={`http://localhost:8000${setting.logoPic}`}
+                      src={`https://api.designerarif.com${setting.logoPic}`}
                       alt="Setting Logo"
                       style={{ height: 150, objectFit: "cover", padding: 10 }}
                     />

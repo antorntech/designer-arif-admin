@@ -14,13 +14,16 @@ function Sidenav({ color }) {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token")); // Get token from local storage
     try {
-      const response = await fetch("http://localhost:8000/api/v1/settings", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`, // Set token in Authorization header
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://api.designerarif.com/api/v1/settings",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Set token in Authorization header
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       setMainLogo(data[0]); // Update settings state with fetched data
       setLoading(false); // Set loading state to false after data is fetched
@@ -63,7 +66,9 @@ function Sidenav({ color }) {
         }}
       >
         <img
-          src={mainLogo ? `http://localhost:8000${mainLogo.logoPic}` : logo}
+          src={
+            mainLogo ? `https://api.designerarif.com${mainLogo.logoPic}` : logo
+          }
           alt="logo"
           style={{
             height: "50px",
