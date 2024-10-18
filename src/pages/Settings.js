@@ -1,41 +1,38 @@
-import { Space, Table, Button, Modal } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Space, Button, Modal, Card, Row, Col } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../components/shared/loader/Loader";
 
 const { confirm } = Modal;
-const { Column } = Table;
 
 const Settings = () => {
   const [settings, setSettings] = useState([]);
-  const [loading, setLoading] = useState(false); // State to manage loading state
+  const [loading, setLoading] = useState(false); // State to manage loading
 
   const getSettings = async () => {
-    setLoading(true); // Set loading state to true
+    setLoading(true);
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("http://localhost:8000/api/v1/settings", {
+      const response = await fetch("http://localhost:8000/api/v1/settings", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setSettings(data); // Update settings state with fetched data
-          setLoading(false); // Set loading state to false after data is fetched
-        });
+      });
+      const data = await response.json();
+      setSettings(data);
     } catch (error) {
-      console.log(error);
-      setLoading(false); // Set loading state to false if there's an error
+      console.error("Error fetching settings:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,118 +40,98 @@ const Settings = () => {
     getSettings();
   }, []);
 
-  // Delete hero content item
-  const handleDelete = (id) => {
-    setLoading(true); // Set loading state to true
-    fetch(`http://localhost:8000/api/v1/settings/delete/${id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success("Setting Deleted Successfully", {
-          autoClose: 1000,
-        });
-        getSettings(); // Fetch updated list after successful deletion
-      })
-      .catch((error) => {
-        console.error("Error deleting hero content:", error);
-        setLoading(false); // Set loading state to false if there's an error
+  const handleDelete = async (id) => {
+    setLoading(true);
+    try {
+      await fetch(`http://localhost:8000/api/v1/settings/delete/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
       });
+      toast.success("Setting Deleted Successfully", { autoClose: 1000 });
+      getSettings(); // Refresh settings list
+    } catch (error) {
+      console.error("Error deleting setting:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Confirm delete modal
   const showConfirm = (id) => {
     confirm({
-      title: "Do you Want to delete these items?",
+      title: "Do you want to delete this item?",
       icon: <ExclamationCircleOutlined />,
-      content:
-        "After click on delete then your item will be delete permanently.",
+      content: "Once deleted, this item cannot be restored.",
       okText: "Delete",
       okType: "danger",
       onOk() {
-        handleDelete(id); // Call handleDelete function on OK
-      },
-      onCancel() {
-        console.log("Cancel");
+        handleDelete(id);
       },
     });
   };
 
   return (
-    <>
-      <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "30px",
-          }}
-        >
-          <div>
-            <h1>Setting</h1>
-            <p>
-              Settings are{" "}
-              {settings.length > 0 ? "available." : "not available."}
-            </p>
-          </div>
-          <div>
-            <Button type="primary" className="primary-btn">
-              <Link to="/settings/add-setting">
-                <PlusOutlined style={{ marginRight: "5px" }} />
-                Add Setting
-              </Link>
-            </Button>
-          </div>
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 30,
+        }}
+      >
+        <div>
+          <h1>Settings</h1>
+          <p>
+            Settings are {settings.length > 0 ? "available." : "not available."}
+          </p>
         </div>
-        {loading ? (
-          <Loader />
-        ) : settings.length > 0 ? (
-          <>
-            <Table dataSource={settings} rowKey="_id">
-              <Column
-                title="Photo"
-                dataIndex="logoPic"
-                key="logoPic"
-                width="100px"
-                render={(logoPic) => (
-                  <img
-                    src={`http://localhost:8000${logoPic}`}
-                    alt="logoPic"
-                    style={{ width: "100px", height: "50px" }}
-                  />
-                )}
-              />
-              <Column
-                title="Action"
-                key="action"
-                width="100px"
-                render={(_, record) => (
-                  <Space size="middle">
-                    <Link to={`/settings/edit-setting/${record._id}`}>
-                      <Button type="primary">
-                        <EditOutlined />
+        <Button type="primary" className="primary-btn">
+          <Link to="/settings/add-setting">
+            <PlusOutlined style={{ marginRight: 5 }} /> Add Setting
+          </Link>
+        </Button>
+      </div>
+
+      {loading ? (
+        <Loader />
+      ) : (
+        <Row gutter={[16, 16]} justify="center">
+          {settings.length > 0 ? (
+            settings.map((setting) => (
+              <Col xs={24} sm={12} md={8} lg={6} key={setting._id}>
+                <Card
+                  style={{ padding: 20 }}
+                  cover={
+                    <img
+                      src={`http://localhost:8000${setting.logoPic}`}
+                      alt="Setting Logo"
+                      style={{ height: 150, objectFit: "cover", padding: 10 }}
+                    />
+                  }
+                  actions={[
+                    <Link to={`/settings/edit-setting/${setting._id}`}>
+                      <Button type="primary" icon={<EditOutlined />} block>
+                        Edit
                       </Button>
-                    </Link>
+                    </Link>,
                     <Button
                       type="danger"
-                      onClick={() => showConfirm(record._id)}
+                      icon={<DeleteOutlined />}
+                      onClick={() => showConfirm(setting._id)}
+                      block
                     >
-                      <DeleteOutlined />
-                    </Button>
-                  </Space>
-                )}
-              />
-            </Table>
-          </>
-        ) : (
-          <Loader />
-        )}
-      </div>
-    </>
+                      Delete
+                    </Button>,
+                  ]}
+                ></Card>
+              </Col>
+            ))
+          ) : (
+            <p>No settings available.</p>
+          )}
+        </Row>
+      )}
+    </div>
   );
 };
 

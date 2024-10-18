@@ -1,10 +1,38 @@
 import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/s.png";
+import { useEffect, useState } from "react";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
+
+  const [loading, setLoading] = useState(false);
+  const [mainLogo, setMainLogo] = useState("");
+
+  const getSettings = async () => {
+    setLoading(true); // Set loading state to true
+    const token = JSON.parse(localStorage.getItem("token")); // Get token from local storage
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/settings", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Set token in Authorization header
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setMainLogo(data[0]); // Update settings state with fetched data
+      setLoading(false); // Set loading state to false after data is fetched
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Set loading state to false if there's an error
+    }
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, []);
 
   const sidenavIcon = (
     <svg
@@ -26,22 +54,22 @@ function Sidenav({ color }) {
 
   return (
     <>
-      <div className="brand">
+      <div
+        className="brand"
+        style={{
+          backgroundColor: color,
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      >
         <img
-          src={logo}
+          src={mainLogo ? `http://localhost:8000${mainLogo.logoPic}` : logo}
           alt="logo"
           style={{
-            height: "40px",
-            margin: "25px 0",
+            height: "50px",
           }}
         />
       </div>
-      <hr
-        style={{
-          margin: "2px 0 18px 0",
-          backgroundColor: "#d9d9d9",
-        }}
-      />
       <Menu theme="light" mode="inline">
         <Menu.Item key="dashboard">
           <NavLink to="/dashboard">

@@ -276,7 +276,7 @@ export default class SignUp extends Component {
             </Menu>
             <p className="copyright">
               {" "}
-              Copyright © 2021 Muse by <a href="#pablo">Creative Tim</a>.{" "}
+              Copyright © 2021 Muse by <a href="#pablo">AM ANTOR</a>.{" "}
             </p>
           </Footer>
         </div>

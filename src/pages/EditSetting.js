@@ -12,6 +12,7 @@ export const EditSetting = () => {
   const [previewImage, setPreviewImage] = useState(null); // Store preview URL
   const [uploading, setUploading] = useState(false);
 
+  // Fetch setting data on component mount
   useEffect(() => {
     fetch(`http://localhost:8000/api/v1/settings/${id}`, {
       method: "GET",
@@ -27,7 +28,7 @@ export const EditSetting = () => {
         setSettingData(data);
         form.setFieldsValue(data);
         if (data.logoPic) {
-          setPreviewImage(data.logoPic); // Set preview image if available
+          setPreviewImage(`http://localhost:8000${data.logoPic}`); // Set preview image
         }
       })
       .catch((error) => {
@@ -36,6 +37,7 @@ export const EditSetting = () => {
       });
   }, [id, form]);
 
+  // Handle upload submission
   const handleUpload = (values) => {
     const formData = new FormData();
 
@@ -69,6 +71,7 @@ export const EditSetting = () => {
       });
   };
 
+  // File upload properties
   const settingPhotoFileProps = {
     onRemove: () => {
       setSettingPhotoFileList([]);
@@ -93,7 +96,7 @@ export const EditSetting = () => {
         <p>You can edit the logo from here.</p>
       </div>
 
-      <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
+      <Row justify="center" align="middle" style={{ minHeight: "70vh" }}>
         <Col xs={24} sm={18} md={12} lg={8}>
           <Form
             onFinish={handleUpload}
@@ -120,13 +123,31 @@ export const EditSetting = () => {
             </Form.Item>
 
             {previewImage && (
-              <div style={{ textAlign: "center", marginBottom: 16 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: 16,
+                }}
+              >
                 <Image
                   width={150}
-                  src={`http://localhost:8000${previewImage}`}
+                  src={previewImage}
                   alt="Preview"
-                  style={{ marginBottom: 10 }}
+                  style={{ marginRight: 10, borderRadius: 8 }}
                 />
+                <Button
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => {
+                    setSettingPhotoFileList([]);
+                    setPreviewImage(null);
+                  }}
+                >
+                  Delete
+                </Button>
               </div>
             )}
 
@@ -148,3 +169,5 @@ export const EditSetting = () => {
     </>
   );
 };
+
+export default EditSetting;
