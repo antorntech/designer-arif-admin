@@ -75,6 +75,7 @@ function Sidenav({ color }) {
           }}
         />
       </div>
+
       <Menu theme="light" mode="inline">
         <Menu.Item key="dashboard">
           <NavLink to="/dashboard">

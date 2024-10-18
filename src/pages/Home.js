@@ -1,7 +1,7 @@
 import { Card, Col, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
 function Home() {
-  const [headMenus, setHeadMenus] = useState([]);
+  const [sliders, setSliders] = useState([]);
   const [taskList, setTaskList] = useState([]);
   const [services, setServices] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -14,7 +14,7 @@ function Home() {
 
   // Get all head menus
   useEffect(() => {
-    fetch("https://api.designerarif.com/api/v1/headmenu", {
+    fetch("https://api.designerarif.com/api/v1/slider", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ function Home() {
       .then((response) => response.json())
       .then((data) => {
         if (data && data.length > 0) {
-          setHeadMenus(data);
+          setSliders(data);
         } else {
           // Perform some action or set a message indicating that there is no data to reverse
           console.log("No data found to reverse!");
@@ -154,8 +154,8 @@ function Home() {
 
   const count = [
     {
-      title: "Total Header Menu",
-      count: `${headMenus && headMenus.length > 0 ? headMenus.length : 0}`,
+      title: "Total Sliders",
+      count: `${sliders && sliders?.length > 0 ? sliders?.length : 0}`,
       icon: <i class="fa-solid fa-list-check icon"></i>,
       bnb: "bnb2",
     },

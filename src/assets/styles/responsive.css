@@ -42,6 +42,9 @@
 }
 
 @media (min-width: 992px) {
+  .logo {
+    display: none;
+  }
   .card-billing-info.ant-card .ant-card-body {
     display: flex;
   }
@@ -69,6 +72,9 @@
 }
 
 @media (max-width: 768px) {
+  .layout-content {
+    margin-top: 20px;
+  }
   .layout-dashboard.layout-dashboard-rtl .header-control {
     justify-content: flex-end;
   }

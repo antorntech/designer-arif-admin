@@ -3,6 +3,7 @@ import { Row, Col, Button, Input, Drawer, Typography, Form } from "antd";
 import { BellOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../../assets/images/s.png";
 
 const logsetting = (
   <svg
@@ -40,6 +41,36 @@ function Header({ placement, onPress }) {
   const [visible, setVisible] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0); // Initialize notification count state
   const [notifications, setNotifications] = useState([]); // State to store notifications
+
+  const [loading, setLoading] = useState(false);
+  const [mainLogo, setMainLogo] = useState("");
+
+  const getSettings = async () => {
+    setLoading(true); // Set loading state to true
+    const token = JSON.parse(localStorage.getItem("token")); // Get token from local storage
+    try {
+      const response = await fetch(
+        "https://api.designerarif.com/api/v1/settings",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Set token in Authorization header
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setMainLogo(data[0]); // Update settings state with fetched data
+      setLoading(false); // Set loading state to false after data is fetched
+    } catch (error) {
+      console.log(error);
+      setLoading(false); // Set loading state to false if there's an error
+    }
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, []);
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -142,7 +173,7 @@ function Header({ placement, onPress }) {
   return (
     <>
       <Row gutter={[24, 0]}>
-        <Col span={24} md={24} className="header-control">
+        <Col xs={24} span={24} md={24} className="header-control">
           <Button
             onClick={handleLogout}
             type="primary"
@@ -241,6 +272,19 @@ function Header({ placement, onPress }) {
               )}
             </div>
           </Button>
+
+          <img
+            src={
+              mainLogo
+                ? `https://api.designerarif.com${mainLogo.logoPic}`
+                : logo
+            }
+            alt="logo"
+            style={{
+              height: "50px",
+            }}
+            className="logo"
+          />
         </Col>
       </Row>
     </>

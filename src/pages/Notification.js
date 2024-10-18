@@ -91,19 +91,15 @@ const Notification = () => {
               <h1>Notification Table</h1>
               <p>Notification's are available.</p>
             </div>
-            {/* <div>
-              <div style={{ marginRight: "10px" }}>
-                <Button type="primary" className="primary-btn">
-                  <Link to="/add-head-menu">
-                    <PlusOutlined style={{ marginRight: "5px" }} />
-                    Add Menu
-                  </Link>
-                </Button>
-              </div>
-            </div> */}
           </div>
-          <div style={{ marginTop: "30px", overflowX: "auto" }}>
-            <Table dataSource={notifications}>
+          <div>
+            <Table
+              dataSource={notifications}
+              rowKey="_id"
+              scroll={{
+                x: 1000,
+              }}
+            >
               <Column
                 title="First Name"
                 dataIndex="firstname"
@@ -113,18 +109,17 @@ const Notification = () => {
               <Column title="Email" dataIndex="email" key="email" />
               <Column title="Phone" dataIndex="phone" key="phone" />
               <Column title="Subject" dataIndex="subject" key="subject" />
-              <Column title="Message" dataIndex="message" key="message" />
+              <Column
+                title="Message"
+                key="message"
+                render={(record) => <p>{record.message.slice(0, 50)}...</p>}
+              />
               <Column
                 title="Action"
                 key="action"
                 width="100px"
                 render={(_, record) => (
                   <Space size="middle">
-                    {/* <Link to={`/edit-head-menu/${record._id}`}>
-                      <Button type="primary">
-                        <EditOutlined />
-                      </Button>
-                    </Link> */}
                     <Button
                       type="danger"
                       onClick={() => showConfirm(record._id)}
