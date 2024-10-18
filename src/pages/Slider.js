@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal } from "antd";
+import { Space, Table, Button, Modal, Row, Col } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -13,15 +13,15 @@ import Loader from "../components/shared/loader/Loader";
 const { confirm } = Modal;
 const { Column } = Table;
 
-const About = () => {
-  const [about, setAbout] = useState([]);
+const Slider = () => {
+  const [slider, setSlider] = useState([]);
   const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const getAbout = async () => {
+  const getSlider = async () => {
     setLoading(true); // Set loading state to true
     const token = JSON.parse(localStorage.getItem("token"));
     try {
-      fetch("https://api.designerarif.com/api/v1/about", {
+      fetch("https://api.designerarif.com/api/v1/slider", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const About = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setAbout(data); // Update about state with fetched data
+          setSlider(data); // Update slider state with fetched data
           setLoading(false); // Set loading state to false after data is fetched
         });
     } catch (error) {
@@ -40,13 +40,13 @@ const About = () => {
   };
 
   useEffect(() => {
-    getAbout();
+    getSlider();
   }, []);
 
-  // Delete about item
+  // Delete hero content item
   const handleDelete = (id) => {
     setLoading(true); // Set loading state to true
-    fetch(`https://api.designerarif.com/api/v1/about/delete/${id}`, {
+    fetch(`https://api.designerarif.com/api/v1/slider/delete/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -54,13 +54,13 @@ const About = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success("About Deleted Successfully", {
+        toast.success("Slider Deleted Successfully", {
           autoClose: 1000,
         });
-        getAbout(); // Fetch updated list after successful deletion
+        getSlider(); // Fetch updated list after successful deletion
       })
       .catch((error) => {
-        console.error("Error deleting about:", error);
+        console.error("Error deleting hero content:", error);
         setLoading(false); // Set loading state to false if there's an error
       });
   };
@@ -95,86 +95,66 @@ const About = () => {
           }}
         >
           <div>
-            <h1>About Details</h1>
+            <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0px" }}>
+              Slider
+            </h1>
             <p>
-              About details are{" "}
-              {about.length > 0 ? "available." : "not available."}
+              Slider are {slider.length > 0 ? "available." : "not available."}
             </p>
           </div>
           <div>
-            {about.length > 0 ? (
-              <Button type="primary" disabled>
-                <Link to="/about/add-about">
-                  <PlusOutlined style={{ marginRight: "5px" }} />
-                  Add About Details
-                </Link>
-              </Button>
-            ) : (
+            {slider.length < 4 ? (
               <Button type="primary" className="primary-btn">
-                <Link to="/about/add-about">
+                <Link to="/slider/add-slider">
                   <PlusOutlined style={{ marginRight: "5px" }} />
-                  Add About Details
+                  Add Slider
                 </Link>
               </Button>
-            )}
+            ) : null}
           </div>
         </div>
         {loading ? (
           <Loader />
-        ) : about.length > 0 ? (
-          <Table
-            dataSource={about}
-            rowKey="_id"
-            scroll={{
-              x: 1000,
-            }}
-          >
-            <Column
-              title="Banner"
-              dataIndex="banner"
-              key="banner"
-              width="200px"
-              render={(banner) => (
-                <img
-                  src={`https://api.designerarif.com${banner}`}
-                  style={{ width: "100px", height: "80px" }}
-                />
-              )}
-            />
-            <Column title="Title" dataIndex="title" key="title" />
-            <Column title="Name" key="name" dataIndex="name" />
-            <Column title="Email" dataIndex="email" key="email" />
-            <Column title="Phone" dataIndex="phone" key="phone" />
-            <Column title="Address" dataIndex="address" key="address" />
-            <Column
-              title="Description"
-              key="description"
-              render={(_, record) => (
-                <Space>
-                  <p style={{ color: "#000" }}>
-                    {record.description.slice(0, 40)}...
-                  </p>
-                </Space>
-              )}
-            />
-            <Column
-              title="Action"
-              key="action"
-              width="100px"
-              render={(_, record) => (
-                <Space size="middle">
-                  <Link to={`/about/edit-about/${record._id}`}>
+        ) : slider.length > 0 ? (
+          <div className="slider-container">
+            {slider.map((slider) => (
+              <div key={slider._id} className="slider-main">
+                <div className="slider-card">
+                  <div>
+                    <h1>Desktop View Photo</h1>
+                    <img
+                      className="desktop-img"
+                      src={`https://api.designerarif.com${slider.desktopPhoto}`}
+                    />
+                  </div>
+                  {slider.mobilePhoto ? (
+                    <div>
+                      <h1>Mobile View Photo</h1>
+                      <img
+                        className="mobile-img"
+                        src={`https://api.designerarif.com${slider.mobilePhoto}`}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <h1>No Mobile View Photo</h1>
+                      <img src="https://placehold.co/200x250" />
+                    </div>
+                  )}
+                </div>
+                <div className="slider-btn">
+                  <Link to={`/slider/edit-slider/${slider._id}`}>
                     <Button type="primary">
                       <EditOutlined />
                     </Button>
                   </Link>
-                  <Button type="danger" onClick={() => showConfirm(record._id)}>
+                  <Button type="danger" onClick={() => showConfirm(slider._id)}>
                     <DeleteOutlined />
                   </Button>
-                </Space>
-              )}
-            />
-          </Table>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <Loader />
         )}
@@ -183,4 +163,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Slider;

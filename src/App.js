@@ -50,6 +50,10 @@ import Settings from "./pages/Settings";
 import AddSetting from "./pages/AddSetting";
 import { EditSetting } from "./pages/EditSetting";
 
+import Slider from "./pages/Slider";
+import AddSlider from "./pages/AddSlider";
+import { EditSlider } from "./pages/EditSlider";
+
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
 
@@ -62,6 +66,13 @@ function App() {
             <Route exact path="/head-menu" component={HeaderMenu} />
             <Route exact path="/add-head-menu" component={AddHeadMenu} />
             <Route exact path="/edit-head-menu/:id" component={EditHeadMenu} />
+            <Route exact path="/slider" component={Slider} />
+            <Route exact path="/slider/add-slider" component={AddSlider} />
+            <Route
+              exact
+              path="/slider/edit-slider/:id"
+              component={EditSlider}
+            />
             <Route exact path="/hero-content" component={HeroContent} />
             <Route exact path="/add-hero-content" component={AddHeroContent} />
             <Route

@@ -10,7 +10,8 @@ const AddService = () => {
   const date = moment().format("ll");
   const [category, setCategory] = useState("");
   const [serviceCategory, setServiceCategory] = useState([]);
-  const [thumbnailFileList, setBannerFileList] = useState([]);
+  const [thumbnailFileList, setThumbnailFileList] = useState([]);
+  const [mainPhotoFileList, setMainPhotoFileList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [uploading, setUploading] = useState(false);
 
@@ -44,6 +45,11 @@ const AddService = () => {
       formData.append("thumbnail", file);
     });
 
+    // Append user photo file to formData
+    mainPhotoFileList.forEach((file) => {
+      formData.append("mainPhoto", file);
+    });
+
     // Append other form data
     formData.append("title", values.title);
     formData.append("description", values.description);
@@ -61,7 +67,7 @@ const AddService = () => {
       .then((res) => res.json())
       .then(() => {
         // Reset form
-        setBannerFileList([]);
+        setThumbnailFileList([]);
         message.success("Service Added Successfully.");
         navigate.push("/services");
       })
@@ -78,13 +84,27 @@ const AddService = () => {
       const index = thumbnailFileList.indexOf(file);
       const newFileList = thumbnailFileList.slice();
       newFileList.splice(index, 1);
-      setBannerFileList(newFileList);
+      setThumbnailFileList(newFileList);
     },
     beforeUpload: (file) => {
-      setBannerFileList([...thumbnailFileList, file]);
+      setThumbnailFileList([...thumbnailFileList, file]);
       return false; // Prevent default upload behavior
     },
     fileList: thumbnailFileList,
+  };
+
+  const mainPhotoFileProps = {
+    onRemove: (file) => {
+      const index = mainPhotoFileList.indexOf(file);
+      const newFileList = mainPhotoFileList.slice();
+      newFileList.splice(index, 1);
+      setMainPhotoFileList(newFileList);
+    },
+    beforeUpload: (file) => {
+      setMainPhotoFileList([...mainPhotoFileList, file]);
+      return false; // Prevent default upload behavior
+    },
+    fileList: mainPhotoFileList,
   };
 
   const handleCategoryChange = (value) => {
@@ -145,26 +165,46 @@ const AddService = () => {
                     allowClear
                     style={{
                       width: "100%",
+                      height: "40px",
+                      lineHeight: "40px",
                     }}
                     placeholder="Please select category"
                     options={serviceOptions}
                     onChange={handleCategoryChange}
                   />
                 </Form.Item>
-                <Form.Item
-                  name="thumbnail"
-                  label="Upload Banner"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter thumbnail",
-                    },
-                  ]}
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "30px" }}
                 >
-                  <Upload {...thumbnailFileProps}>
-                    <Button icon={<UploadOutlined />}>Select File</Button>
-                  </Upload>
-                </Form.Item>
+                  <Form.Item
+                    name="thumbnail"
+                    label="Upload Thumbnail (W-350px) (H-380px)"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter thumbnail",
+                      },
+                    ]}
+                  >
+                    <Upload {...thumbnailFileProps}>
+                      <Button icon={<UploadOutlined />}>Select File</Button>
+                    </Upload>
+                  </Form.Item>
+                  <Form.Item
+                    name="mainPhoto"
+                    label="Upload Main Photo"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter main photo",
+                      },
+                    ]}
+                  >
+                    <Upload {...mainPhotoFileProps}>
+                      <Button icon={<UploadOutlined />}>Select File</Button>
+                    </Upload>
+                  </Form.Item>
+                </div>
               </Col>
             </Row>
 

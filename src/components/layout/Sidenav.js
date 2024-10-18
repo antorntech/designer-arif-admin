@@ -69,17 +69,17 @@ function Sidenav({ color }) {
             <span className="label">About Details</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="hero">
-          <NavLink to="/hero-content">
+        <Menu.Item key="slider">
+          <NavLink to="/slider">
             <span
               className="icon"
               style={{
-                background: page === "hero" ? color : "",
+                background: page === "slider" ? color : "",
               }}
             >
               {sidenavIcon}
             </span>
-            <span className="label">Hero Content</span>
+            <span className="label">Slider</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="tasklist">
