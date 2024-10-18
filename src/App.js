@@ -46,6 +46,9 @@ import FooterMenu from "./pages/FooterMenu";
 import AddFooterMenu from "./pages/AddFooterMenu";
 import EditFooterMenu from "./pages/EditFooterMenu";
 import Notification from "./pages/Notification";
+import Settings from "./pages/Settings";
+import AddSetting from "./pages/AddSetting";
+import { EditSetting } from "./pages/EditSetting";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -107,6 +110,13 @@ function App() {
             <Route exact path="/skills" component={Skills} />
             <Route exact path="/skills/add-skill" component={AddSkill} />
             <Route exact path="/skills/edit-skill/:id" component={EditSkill} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/settings/add-setting" component={AddSetting} />
+            <Route
+              exact
+              path="/settings/edit-setting/:id"
+              component={EditSetting}
+            />
             <Route exact path="/reviews" component={Reviews} />
             <Route exact path="/reviews/add-review" component={AddReview} />
             <Route

@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo-black.png";
+import logo from "../../assets/images/s.png";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
@@ -67,32 +67,6 @@ function Sidenav({ color }) {
               {sidenavIcon}
             </span>
             <span className="label">About Details</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="header">
-          <NavLink to="/head-menu">
-            <span
-              className="icon"
-              style={{
-                background: page === "header" ? color : "",
-              }}
-            >
-              {sidenavIcon}
-            </span>
-            <span className="label">All Head Menu</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="footer">
-          <NavLink to="/footer-menu">
-            <span
-              className="icon"
-              style={{
-                background: page === "footer" ? color : "",
-              }}
-            >
-              {sidenavIcon}
-            </span>
-            <span className="label">All Footer Menu</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="hero">
@@ -210,6 +184,19 @@ function Sidenav({ color }) {
               {sidenavIcon}
             </span>
             <span className="label">Free Resource</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="settings">
+          <NavLink to="/settings">
+            <span
+              className="icon"
+              style={{
+                background: page === "settings" ? color : "",
+              }}
+            >
+              {sidenavIcon}
+            </span>
+            <span className="label">Settings</span>
           </NavLink>
         </Menu.Item>
       </Menu>
