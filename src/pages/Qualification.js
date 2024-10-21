@@ -96,7 +96,7 @@ const Qualification = () => {
 
   // Render Tables
   const renderTable = (data, endpoint, title, setter) => (
-    <div style={{ marginBottom: "30px" }}>
+    <div style={{ marginBottom: "5px" }}>
       <div className="table-header" style={styles.header}>
         <h1>{title} Table</h1>
         <p>
@@ -170,7 +170,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: "30px",
+    marginBottom: "5px",
   },
   emptyState: {
     display: "flex",

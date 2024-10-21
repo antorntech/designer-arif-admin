@@ -83,7 +83,7 @@ const Notification = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "30px",
+              marginBottom: "5px",
             }}
           >
             <div>
@@ -138,7 +138,7 @@ const Notification = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "30px",
+              marginBottom: "5px",
             }}
           >
             <div>

@@ -84,7 +84,7 @@ const FooterMenu = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "30px",
+              marginBottom: "5px",
             }}
           >
             <div>
@@ -136,7 +136,7 @@ const FooterMenu = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "30px",
+              marginBottom: "5px",
             }}
           >
             <div>
