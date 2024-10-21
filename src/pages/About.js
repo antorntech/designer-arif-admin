@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal } from "antd";
+import { Space, Table, Button, Modal, Row, Col, Card } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -91,7 +91,6 @@ const About = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "30px",
           }}
         >
           <div>
@@ -122,59 +121,65 @@ const About = () => {
         {loading ? (
           <Loader />
         ) : about.length > 0 ? (
-          <Table
-            dataSource={about}
-            rowKey="_id"
-            scroll={{
-              x: 1000,
-            }}
-          >
-            <Column
-              title="Banner"
-              dataIndex="banner"
-              key="banner"
-              width="200px"
-              render={(banner) => (
-                <img
-                  src={`https://api.designerarif.com${banner}`}
-                  style={{ width: "100px", height: "80px" }}
-                />
-              )}
-            />
-            <Column title="Title" dataIndex="title" key="title" />
-            <Column title="Name" key="name" dataIndex="name" />
-            <Column title="Email" dataIndex="email" key="email" />
-            <Column title="Phone" dataIndex="phone" key="phone" />
-            <Column title="Address" dataIndex="address" key="address" />
-            <Column
-              title="Description"
-              key="description"
-              render={(_, record) => (
-                <Space>
-                  <p style={{ color: "#000" }}>
-                    {record.description.slice(0, 40)}...
-                  </p>
-                </Space>
-              )}
-            />
-            <Column
-              title="Action"
-              key="action"
-              width="100px"
-              render={(_, record) => (
-                <Space size="middle">
-                  <Link to={`/about/edit-about/${record._id}`}>
-                    <Button type="primary">
-                      <EditOutlined />
-                    </Button>
-                  </Link>
-                  <Button type="danger" onClick={() => showConfirm(record._id)}>
-                    <DeleteOutlined />
-                  </Button>
-                </Space>
-              )}
-            />
-          </Table>
+          <div>
+            <Row gutter={[16, 16]}>
+              {about.map((item) => (
+                <Col xs={24} sm={24} md={24} lg={12} key={item._id}>
+                  <Card className="profile-card">
+                    <Row gutter={16}>
+                      {/* Left Section - Image */}
+                      <Col xs={24} md={12}>
+                        <div className="image-container">
+                          <img
+                            alt="Banner"
+                            src={`https://api.designerarif.com${item.banner}`}
+                          />
+                        </div>
+                      </Col>
+
+                      {/* Right Section - Details */}
+                      <Col xs={24} md={12}>
+                        <div className="profile-details">
+                          <h3 style={{ fontSize: "22px", color: "#fff" }}>
+                            {item.title}
+                          </h3>
+                          <p>
+                            <strong>Name:</strong> {item.name}
+                          </p>
+                          <p>
+                            <strong>Email:</strong> {item.email}
+                          </p>
+                          <p>
+                            <strong>Phone:</strong> {item.phone}
+                          </p>
+                          <p>
+                            <strong>Address:</strong> {item.address}
+                          </p>
+                          <p>
+                            <strong>Description:</strong>{" "}
+                            {item.description.slice(0, 40)}...
+                          </p>
+                          <Space size="middle" style={{ marginTop: "10px" }}>
+                            <Link to={`/about/edit-about/${item._id}`}>
+                              <Button type="primary">
+                                <EditOutlined style={{ fontSize: "16px" }} />
+                              </Button>
+                            </Link>
+                            <Button
+                              type="danger"
+                              onClick={() => showConfirm(item._id)}
+                            >
+                              <DeleteOutlined style={{ fontSize: "16px" }} />
+                            </Button>
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </div>
         ) : (
           <Loader />
         )}

@@ -1,7 +1,6 @@
 import { Space, Table, Button, Modal } from "antd";
 import {
   PlusOutlined,
-  EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";

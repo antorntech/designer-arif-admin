@@ -30,6 +30,16 @@ function Main({ children }) {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      localStorage.removeItem("token");
+      window.location.reload();
+    }, 900000); // 15 minutes = 900,000 ms
+
+    // Cleanup the timeout when the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <Layout
       className={`layout-dashboard ${

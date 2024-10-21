@@ -3135,8 +3135,12 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #141414;
-  border: 1px solid #0bb0ba;
+  background: rgba(0, 34, 44, 0.925);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .slider-card {
   gap: 10px;
@@ -3170,4 +3174,20 @@ section.ant-layout.ant-layout-has-sider.layout-dashboard.layout-profile
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.profile-card {
+  padding: 20px;
+  color: #fff;
+  background: rgba(0, 34, 44, 0.925);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.profile-card .profile-details p {
+  color: #d4d4d4;
+  font-size: 16px;
 }

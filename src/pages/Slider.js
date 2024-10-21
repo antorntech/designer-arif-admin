@@ -1,4 +1,4 @@
-import { Space, Table, Button, Modal, Row, Col } from "antd";
+import { Button, Modal } from "antd";
 import {
   PlusOutlined,
   EditOutlined,
@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import Loader from "../components/shared/loader/Loader";
 
 const { confirm } = Modal;
-const { Column } = Table;
 
 const Slider = () => {
   const [slider, setSlider] = useState([]);
@@ -91,7 +90,6 @@ const Slider = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "30px",
           }}
         >
           <div>

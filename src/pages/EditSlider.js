@@ -1,6 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Upload, message } from "antd";
-import TextArea from "antd/lib/input/TextArea";
+import { Button, Col, Form, Row, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
