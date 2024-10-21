@@ -34,7 +34,7 @@ function Main({ children }) {
     const timeoutId = setTimeout(() => {
       localStorage.removeItem("token");
       window.location.reload();
-    }, 900000); // 15 minutes = 900,000 ms
+    }, 1800000); // 30 minutes = 1,800,000 ms
 
     // Cleanup the timeout when the component unmounts
     return () => clearTimeout(timeoutId);
