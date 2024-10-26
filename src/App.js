@@ -53,6 +53,9 @@ import { EditSetting } from "./pages/EditSetting";
 import Slider from "./pages/Slider";
 import AddSlider from "./pages/AddSlider";
 import { EditSlider } from "./pages/EditSlider";
+import VideoAnimations from "./pages/VideoAnimations";
+import AddVideoAnimation from "./pages/AddVideoAnimation";
+import { EditVideoAnimation } from "./pages/EditVideoAnimation";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("token"));
@@ -139,6 +142,17 @@ function App() {
             <Route exact path="/blogs/add-blog" component={AddBlog} />
             <Route exact path="/blogs/edit-blog/:id" component={EditBlog} />
             <Route exact path="/freeresource" component={FreeResource} />
+            <Route exact path="/videoanimations" component={VideoAnimations} />
+            <Route
+              exact
+              path="/videoanimations/add"
+              component={AddVideoAnimation}
+            />
+            <Route
+              exact
+              path="/videoanimations/edit/:id"
+              component={EditVideoAnimation}
+            />
             <Route
               exact
               path="/freeresource/add-freeresource"
