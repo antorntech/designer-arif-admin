@@ -16,7 +16,7 @@ const AddVideoAnimation = () => {
     });
 
     formData.append("videoUrl", values.videoUrl);
-    fetch("http://localhost:8000/api/v1/videoanimations/add", {
+    fetch("https://api.designerarif.com/api/v1/videoanimations/add", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
